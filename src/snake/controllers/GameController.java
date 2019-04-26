@@ -3,6 +3,7 @@ package snake.controllers;
 
 import snake.models.Game;
 import snake.models.Model;
+import snake.views.GameView;
 import snake.views.MenuView;
 import snake.views.View;
 import snake.views.Window;
@@ -50,4 +51,9 @@ public class GameController implements Controller {
         }
     }
 
+    @Override
+    public void newGame() {
+        View gameView = new GameView(game, this);
+        rootView.changeView(gameView);
+    }
 }
