@@ -9,12 +9,13 @@ public class Window extends JFrame {
     private Window(String title, int width, int height) {
         super(title);
 
-        this.setPreferredSize(new Dimension(width, height));
-        this.setMaximumSize(new Dimension(width, height));
-        this.setMinimumSize(new Dimension(width, height));
+        this.getContentPane().setPreferredSize(new Dimension(width, height));
+        this.getContentPane().setMaximumSize(new Dimension(width, height));
+        this.getContentPane().setMinimumSize(new Dimension(width, height));
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
+        this.pack();
         this.setLocationRelativeTo(null);
     }
 
@@ -28,8 +29,8 @@ public class Window extends JFrame {
 
     public void changeView(View view) {
         this.setContentPane((JPanel)view);
+        this.getContentPane().requestFocus();
         this.revalidate();
-        this.pack();
         this.setVisible(true);
     }
 }

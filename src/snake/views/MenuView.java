@@ -18,7 +18,9 @@ public class MenuView extends JPanel implements View {
     public MenuView(Model game, Controller controller) {
         this.game = game;
         this.controller = controller;
+
         game.addView(this);
+
         this.setFocusable(true);
         this.addKeyListener(this);
         init();
