@@ -9,6 +9,7 @@ import java.util.LinkedList;
 public class Snake implements Drawable, Runnable {
     private LinkedList<Point> body;
     private Direction direction;
+    private volatile boolean running = true;
 
     public Snake() {
         this.body = new LinkedList<>();
@@ -94,6 +95,31 @@ public class Snake implements Drawable, Runnable {
         thread.start();
     }
 
+    public synchronized void stop() {
+        running = false;
+    }
+
+    public synchronized boolean isHitWall(int boardWidth, int boardHeight) {
+        Point head = this.getHead();
+        if (head.x < 0 || head.x > boardWidth || head.y < 0 || head.y > boardHeight)
+            return true;
+        return false;
+    }
+
+    public synchronized boolean isHitSelf() {
+        Point head = this.getHead();
+        for (int i = 0; i < body.size() - 1; i++) {
+            if (body.get(i).equals(head))
+                return true;
+
+        }
+        return false;
+    }
+
+    public synchronized boolean isHitApple(Apple apple) {
+        Point head = this.getHead();
+        return head.equals(apple.getPoint());
+    }
 
     @Override
     public void draw(Graphics2D g) {
@@ -111,7 +137,7 @@ public class Snake implements Drawable, Runnable {
         long beforeTime, timeDiff, sleep;
         beforeTime = System.currentTimeMillis();
 
-        while (true) {
+        while (running) {
 
             this.move();
 

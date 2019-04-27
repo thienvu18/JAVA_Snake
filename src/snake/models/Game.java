@@ -108,6 +108,21 @@ public class Game implements Model, Runnable {
 
         while (true) {
 
+            if (snake.isHitApple(apple)) {
+                System.out.println("Ăn");
+                apple = new Apple();
+            }
+
+            if (snake.isHitWall(board.getWidth(), board.getHeight())) {
+                snake.stop();
+                System.out.println("Cắn tường");
+            }
+
+            if (snake.isHitSelf()) {
+                snake.stop();
+                System.out.println("Cắn thân");
+            }
+
             this.notifyModelChange();
 
             timeDiff = System.currentTimeMillis() - beforeTime;

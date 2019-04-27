@@ -13,6 +13,14 @@ public class Board implements Drawable {
         this.height = height;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     @Override
     public void draw(Graphics2D g) {
         for (int i = 0; i < width; i++) {

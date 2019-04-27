@@ -50,6 +50,10 @@ public class Apple implements Drawable, Runnable {
         g.drawImage(image, point.getCenterXInPixel() - image.getWidth(null) / 2, point.getCenterYInPixel() - image.getHeight(null) / 2, null);
     }
 
+    public Point getPoint() {
+        return point;
+    }
+
     @Override
     public void run() {
         long beforeTime, timeDiff, sleep;
