@@ -25,10 +25,6 @@ public class Game implements Model, Runnable {
         state = GameState.INITIALIZED;
     }
 
-    private synchronized void animation() {
-        apple.animation();
-    }
-
     public synchronized void turnSnakeLeft() {
         Direction newDirection = Direction.WEST;
         snake.turn(newDirection);
@@ -70,11 +66,10 @@ public class Game implements Model, Runnable {
 
     @Override
     public synchronized void start() {
-        if (state == GameState.INITIALIZED) {
-            Thread thread = new Thread(this);
-            thread.start();
-        }
-        state = GameState.PLAYING;
+        snake.start();
+        apple.start();
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
     @Override
@@ -107,19 +102,16 @@ public class Game implements Model, Runnable {
 
     @Override
     public void run() {
+
         long beforeTime, timeDiff, sleep;
         beforeTime = System.currentTimeMillis();
 
-        while (state != GameState.STOPPED) {
+        while (true) {
 
-            if (state == GameState.PLAYING) {
-                animation();
-                snake.move();
-                notifyModelChange();
-            }
+            this.notifyModelChange();
 
             timeDiff = System.currentTimeMillis() - beforeTime;
-            sleep = Constrains.DELAY - timeDiff;
+            sleep = 1000 / Constrains.FPS - timeDiff;
             if (sleep < 0) {
                 sleep = 2;
             }
@@ -129,5 +121,6 @@ public class Game implements Model, Runnable {
             }
             beforeTime = System.currentTimeMillis();
         }
+
     }
 }

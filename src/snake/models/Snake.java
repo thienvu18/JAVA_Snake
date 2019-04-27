@@ -4,20 +4,15 @@ import snake.utils.constraints.Constrains;
 import snake.utils.enums.Direction;
 
 import java.awt.*;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
-public class Snake implements Drawable {
+public class Snake implements Drawable, Runnable {
     private LinkedList<Point> body;
     private Direction direction;
-    private int speed;
-    private int ignore = 0;
 
     public Snake() {
         this.body = new LinkedList<>();
         this.direction = Direction.EAST;
-        this.speed = Constrains.SNAKE_SPEED;
 
         body.add(new Point(7, 10));
         body.add(new Point(8, 10));
@@ -89,16 +84,14 @@ public class Snake implements Drawable {
         }
     }
 
-    public synchronized void move() {
-        if (ignore < Constrains.FPS / Constrains.SNAKE_SPEED) {
-            ignore++;
-
-            return;
-        }
-        ignore = 0;
-        //TODO: Giải quyết bug bấm chuyển hướng nhanh sẽ gây lỗi quay đầu
+    private synchronized void move() {
         this.removeTail();
         this.addHead(this.next());
+    }
+
+    public synchronized void start() {
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
 
@@ -108,8 +101,30 @@ public class Snake implements Drawable {
         g.setColor(new Color(68, 114, 230));
 
         for (int i = 0; i < body.size() - 1; i++) {
-            g.drawLine(body.get(i).getCenterXInPixel(), body.get(i).getCenterYInPixel(), body.get(i + 1).getCenterXInPixel() , body.get(i + 1).getCenterYInPixel() );
+            g.drawLine(body.get(i).getCenterXInPixel(), body.get(i).getCenterYInPixel(), body.get(i + 1).getCenterXInPixel(), body.get(i + 1).getCenterYInPixel());
         }
-        g.drawLine(body.getLast().getCenterXInPixel() , body.getLast().getCenterYInPixel() , body.getLast().getCenterXInPixel() , body.getLast().getCenterYInPixel() );
+        g.drawLine(body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel(), body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel());
+    }
+
+    @Override
+    public void run() {
+        long beforeTime, timeDiff, sleep;
+        beforeTime = System.currentTimeMillis();
+
+        while (true) {
+
+            this.move();
+
+            timeDiff = System.currentTimeMillis() - beforeTime;
+            sleep = 1000 / Constrains.SNAKE_SPEED - timeDiff;
+            if (sleep < 0) {
+                sleep = 2;
+            }
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException ignored) {
+            }
+            beforeTime = System.currentTimeMillis();
+        }
     }
 }
