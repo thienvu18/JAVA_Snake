@@ -50,6 +50,7 @@ public class Apple implements Drawable {
     @Override
     public void draw(Graphics2D g) {
         Image image = bufferedImage.getScaledInstance((int) (Constrains.POINT_SIZE * currentScale), (int)(Constrains.POINT_SIZE * currentScale), Image.SCALE_SMOOTH);
-        g.drawImage(image, point.x * Constrains.POINT_SIZE, point.y*Constrains.POINT_SIZE, null);
+
+        g.drawImage(image, point.getCenterXInPixel() - image.getWidth(null) / 2, point.getCenterYInPixel() - image.getHeight(null) / 2, null);
     }
 }

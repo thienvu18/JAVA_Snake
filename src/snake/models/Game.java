@@ -1,6 +1,7 @@
 package snake.models;
 
 import snake.utils.constraints.Constrains;
+import snake.utils.enums.Direction;
 import snake.utils.enums.GameState;
 import snake.views.View;
 
@@ -13,11 +14,13 @@ public class Game implements Model, Runnable {
     private GameState state;
     private Board board;
     private Apple apple;
+    private Snake snake;
 
     public Game() {
         this.views = new ArrayList<>();
         board = new Board(20, 20);
         apple = new Apple();
+        snake = new Snake();
 
         state = GameState.INITIALIZED;
     }
@@ -25,6 +28,28 @@ public class Game implements Model, Runnable {
     private synchronized void animation() {
         apple.animation();
     }
+
+    public synchronized void turnSnakeLeft() {
+        Direction newDirection = Direction.WEST;
+        snake.turn(newDirection);
+    }
+
+    public synchronized void turnSnakeRight() {
+        Direction newDirection = Direction.EAST;
+        snake.turn(newDirection);
+    }
+
+
+    public synchronized void turnSnakeUp() {
+        Direction newDirection = Direction.NORTH;
+        snake.turn(newDirection);
+    }
+
+    public synchronized void turnSnakeDown() {
+        Direction newDirection = Direction.SOUTH;
+        snake.turn(newDirection);
+    }
+
 
     @Override
     public void addView(View view) {
@@ -77,6 +102,7 @@ public class Game implements Model, Runnable {
     public void draw(Graphics2D g) {
         board.draw(g);
         apple.draw(g);
+        snake.draw(g);
     }
 
     @Override
@@ -88,6 +114,7 @@ public class Game implements Model, Runnable {
 
             if (state == GameState.PLAYING) {
                 animation();
+                snake.move();
                 notifyModelChange();
             }
 

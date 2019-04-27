@@ -38,4 +38,24 @@ public class GameController implements Controller {
         game.resume();
         System.out.println("Resumed");
     }
+
+    @Override
+    public synchronized void turnSnakeLeft() {
+        ((Game)game).turnSnakeLeft();
+    }
+
+    @Override
+    public synchronized void turnSnakeRight() {
+        ((Game)game).turnSnakeRight();
+    }
+
+    @Override
+    public synchronized void turnSnakeUp() {
+        ((Game)game).turnSnakeUp();
+    }
+
+    @Override
+    public synchronized void turnSnakeDown() {
+        ((Game)game).turnSnakeDown();
+    }
 }
