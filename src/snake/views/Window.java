@@ -33,4 +33,8 @@ public class Window extends JFrame {
         this.revalidate();
         this.setVisible(true);
     }
+
+    public Component getCurrentPanel() {
+        return this.getContentPane();
+    }
 }

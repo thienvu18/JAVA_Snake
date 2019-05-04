@@ -116,6 +116,7 @@ public class Game implements Model, Runnable {
             if (snake.isHitWall(board.getWidth(), board.getHeight())) {
                 snake.stop();
                 System.out.println("Cắn tường");
+                break;
             }
 
             if (snake.isHitSelf()) {

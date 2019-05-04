@@ -1,51 +1,66 @@
 package snake.views;
 
 import snake.controllers.Controller;
-import snake.models.Apple;
 import snake.models.Model;
 import snake.utils.constraints.Constrains;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
 
-public class GameView extends JPanel implements View, FocusListener {
+public class GameView extends JPanel implements View {
     private Model game;
     private Controller controller;
-
+    private BoardView boardView;
+    private JPanel pnNorth, pnMain;
+    private JLabel labelScore;
     public GameView(Model game, Controller controller) {
         this.game = game;
         this.controller = controller;
+        boardView = new BoardView(game, controller);
 
-        game.addView(this);
-
-        this.setFocusable(true);
-        this.addFocusListener(this);
-        this.addKeyListener(this);
+        setLayout(new BorderLayout());
+        frameView();
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g.create();
+    public void frameView() {
 
-        g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-        g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-        g2d.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+        pnNorth = new JPanel();
+        pnMain = new JPanel();
+        pnMain.setBackground(Constrains.BACKGROUND);
+        labelScore = new JLabel("0");
+        ImageIcon imageIcon = new ImageIcon(
+                new ImageIcon(Constrains.RES_APPLE).getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
+        JLabel labelApple = new JLabel();
+        labelApple.setIcon(imageIcon);
+        pnNorth.setBackground(Constrains.BACKGROUND_NORTH);
+        pnNorth.add(labelApple);
+        pnNorth.add(labelScore);
 
-        game.draw(g2d);
 
-        g2d.dispose();
+
+
+        pnMain.add(boardView);
+        initLayout();
+
+        add(pnNorth, BorderLayout.NORTH);
+        add(pnMain, BorderLayout.CENTER);
+    }
+
+    private void initLayout() {
+        SpringLayout layout = new SpringLayout();
+
+        int topMargin = (int)((Constrains.HEIGHT - pnNorth.getPreferredSize().getHeight() - boardView.getPreferredSize().getHeight()) / 2);
+        int leftMargin = (int)((Constrains.WIDTH  - boardView.getPreferredSize().getWidth()) / 2);
+
+        layout.putConstraint(SpringLayout.NORTH, boardView, topMargin, SpringLayout.NORTH, this);
+        layout.putConstraint(SpringLayout.WEST, boardView, leftMargin, SpringLayout.WEST, this);
+        pnMain.setLayout(layout);
     }
 
     @Override
     public void render() {
-        this.repaint();
+
     }
 
     @Override
@@ -55,37 +70,11 @@ public class GameView extends JPanel implements View, FocusListener {
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-        System.out.println(keyEvent.getKeyCode());
-        switch (keyEvent.getKeyCode())
-        {
-            case KeyEvent.VK_LEFT:
-                controller.turnSnakeLeft();
-                System.out.println("Turn");
-                break;
-            case KeyEvent.VK_RIGHT:
-                controller.turnSnakeRight();
-                break;
-            case KeyEvent.VK_UP:
-                controller.turnSnakeUp();
-                break;
-            case KeyEvent.VK_DOWN:
-                controller.turnSnakeDown();
-                break;
 
-        }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
 
-    }
-
-    @Override
-    public void focusGained(FocusEvent e) {
-    }
-
-    @Override
-    public void focusLost(FocusEvent e) {
-        controller.pause();
     }
 }

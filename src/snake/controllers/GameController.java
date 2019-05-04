@@ -3,10 +3,10 @@ package snake.controllers;
 
 import snake.models.Game;
 import snake.models.Model;
-import snake.views.GameView;
-import snake.views.MenuView;
-import snake.views.View;
-import snake.views.Window;
+import snake.utils.constraints.Constrains;
+import snake.views.*;
+
+import javax.swing.*;
 
 public class GameController implements Controller {
 
@@ -15,16 +15,17 @@ public class GameController implements Controller {
 
     public GameController(Game game) {
         this.game = game;
-        rootView = Window.getInstance("Snake game", 600, 600);
+        rootView = Window.getInstance("Snake game", Constrains.WIDTH, Constrains.HEIGHT);
         View menuView = new MenuView(game, this);
         rootView.changeView(menuView);
-        game.start();
+
     }
 
     @Override
     public void newGame() {
         View gameView = new GameView(game, this);
         rootView.changeView(gameView);
+        game.start();
     }
 
     @Override
@@ -37,6 +38,16 @@ public class GameController implements Controller {
     public void resume() {
         game.resume();
         System.out.println("Resumed");
+    }
+
+    @Override
+    public void quit() {
+
+        if (JOptionPane.showConfirmDialog(rootView, "Are you sure to quit this game?", "Close game!",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+
     }
 
     @Override
@@ -57,6 +68,18 @@ public class GameController implements Controller {
     @Override
     public synchronized void turnSnakeDown() {
         ((Game)game).turnSnakeDown();
+    }
+
+    @Override
+    public void chooseLevel() {
+        View levelView = new LevelView(rootView.getCurrentPanel(), game, this);
+        rootView.changeView(levelView);
+
+    }
+
+    @Override
+    public void changeView(View view) {
+        rootView.changeView(view);
     }
 
 

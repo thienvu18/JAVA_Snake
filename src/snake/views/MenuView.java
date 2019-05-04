@@ -2,23 +2,28 @@ package snake.views;
 
 import snake.controllers.Controller;
 import snake.models.Model;
+import snake.utils.constraints.Constrains;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class MenuView extends JPanel implements View {
     private Model game;
     private Controller controller;
-    private JButton newgamebt, optionbt, quitbt, resumebt, levelbt, highscorebt;
+    private JButton newgamebt, optionbt, quitbt, levelbt, highscorebt;
 
     public MenuView(Model game, Controller controller) {
         this.game = game;
         this.controller = controller;
-
+        this.setLayout(new BorderLayout());
         game.addView(this);
 
         this.setFocusable(true);
@@ -31,40 +36,47 @@ public class MenuView extends JPanel implements View {
         mouseEventButton();
     }
 
+    public void paintComponent(Graphics g) {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(Constrains.VIEW_GAME));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        g.drawImage(image, 0, 0, null);
+    }
+
     private void addButton() {
         /** GridLayout */
         JPanel p = new JPanel(new GridLayout(6, 1, 5, 5));
-        p.setSize(new Dimension(200, 250));
+        p.setPreferredSize(new Dimension(200, 250));
+        p.setMaximumSize(new Dimension(200, 250));
+        p.setMinimumSize(new Dimension(200, 250));
         /** create button */
         newgamebt = new JButton("New Game");
-        resumebt = new JButton("Resume");
         levelbt = new JButton("Level");
         highscorebt = new JButton("High Score");
         optionbt = new JButton("Option");
         quitbt = new JButton("Quit");
         /** set font and size for text in button */
         newgamebt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
-        resumebt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
         highscorebt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
         levelbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
         optionbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
         quitbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
         /** set no border for button */
         newgamebt.setBorder(null);
-        resumebt.setBorder(null);
         highscorebt.setBorder(null);
         levelbt.setBorder(null);
         optionbt.setBorder(null);
         quitbt.setBorder(null);
         /** hiden background button */
         newgamebt.setFocusPainted(false);
-        resumebt.setFocusPainted(false);
         highscorebt.setFocusPainted(false);
         levelbt.setFocusPainted(false);
         optionbt.setFocusPainted(false);
         quitbt.setFocusPainted(false);
         newgamebt.setContentAreaFilled(false);
-        resumebt.setContentAreaFilled(false);
         highscorebt.setContentAreaFilled(false);
         levelbt.setContentAreaFilled(false);
         optionbt.setContentAreaFilled(false);
@@ -73,18 +85,16 @@ public class MenuView extends JPanel implements View {
         p.setOpaque(false);
         /** add button ==> layout */
         p.add(newgamebt);
-        p.add(resumebt);
         p.add(highscorebt);
         p.add(levelbt);
         p.add(optionbt);
         p.add(quitbt);
-        p.setLocation(80, 200);
-        add(p);
+//        p.setLocation(180, 200);
+        add(p, BorderLayout.NORTH);
     }
 
     public void mouseEventButton() {
         newgamebt.addMouseListener(addEvent());
-        resumebt.addMouseListener(addEvent());
         highscorebt.addMouseListener(addEvent());
         levelbt.addMouseListener(addEvent());
         optionbt.addMouseListener(addEvent());
@@ -98,9 +108,6 @@ public class MenuView extends JPanel implements View {
                 super.mouseEntered(e);
                 if (e.getSource() == newgamebt) {
                     newgamebt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
-                }
-                if (e.getSource() == resumebt) {
-                    resumebt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
                 }
                 if (e.getSource() == highscorebt) {
                     highscorebt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
@@ -125,16 +132,15 @@ public class MenuView extends JPanel implements View {
                 if (e.getSource() == newgamebt) {
                     controller.newGame();
                 }
-                if (e.getSource() == resumebt) {
-                }
                 if (e.getSource() == highscorebt) {
                 }
                 if (e.getSource() == levelbt) {
-
+                        controller.chooseLevel();
                 }
                 if (e.getSource() == optionbt) {
                 }
                 if (e.getSource() == quitbt) {
+                    controller.quit();
                 }
             }
 
@@ -142,9 +148,6 @@ public class MenuView extends JPanel implements View {
             public void mouseExited(MouseEvent e) {
                 if (e.getSource() == newgamebt) {
                     newgamebt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
-                }
-                if (e.getSource() == resumebt) {
-                    resumebt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
                 }
                 if (e.getSource() == highscorebt) {
                     highscorebt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
@@ -162,7 +165,6 @@ public class MenuView extends JPanel implements View {
             }
         };
     }
-
 
     @Override
     public void render() {
@@ -183,4 +185,3 @@ public class MenuView extends JPanel implements View {
     public void keyReleased(KeyEvent e) {
     }
 }
-
