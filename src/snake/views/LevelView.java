@@ -148,21 +148,10 @@ public class LevelView extends JPanel implements View {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-//                if (e.getSource() == easybt) {
-//                    controller.setLevel(1);
-//                    dispose();
-//                }
-//                if (e.getSource() == normalbt) {
-//                    controller.setLevel(2);
-//                    dispose();
-//                }
-//                if (e.getSource() == hardbt) {
-//                    controller.setLevel(3);
-//                    dispose();
-//                }
+//
 
-                if(!panel.contains(e.getPoint())) {
-                        controller.changeView(parent);
+                if (!panel.contains(e.getPoint())) {
+                    controller.changeView(parent);
                 }
                 System.out.println(e.getPoint());
                 System.out.println(panel.contains(e.getPoint()));
@@ -204,6 +193,6 @@ class CustomPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-        graphics.drawImage(background, 0, 0,getWidth(),getHeight(), null);
+        graphics.drawImage(background, 0, 0, getWidth(), getHeight(), null);
     }
 }

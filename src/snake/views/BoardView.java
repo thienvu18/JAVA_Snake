@@ -20,9 +20,6 @@ public class BoardView extends JPanel implements View, FocusListener {
        this.setPreferredSize(new Dimension(550, 500));
        this.setMaximumSize(new Dimension(550, 500));
        this.setMinimumSize(new Dimension(550, 500));
-        this.setFocusable(true);
-        this.addFocusListener(this);
-        this.addKeyListener(this);
     }
 
     @Override
@@ -56,23 +53,7 @@ public class BoardView extends JPanel implements View, FocusListener {
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-        System.out.println(keyEvent.getKeyCode());
-        switch (keyEvent.getKeyCode())
-        {
-            case KeyEvent.VK_LEFT:
-                controller.turnSnakeLeft();
-                break;
-            case KeyEvent.VK_RIGHT:
-                controller.turnSnakeRight();
-                break;
-            case KeyEvent.VK_UP:
-                controller.turnSnakeUp();
-                break;
-            case KeyEvent.VK_DOWN:
-                controller.turnSnakeDown();
-                break;
 
-        }
     }
 
     @Override

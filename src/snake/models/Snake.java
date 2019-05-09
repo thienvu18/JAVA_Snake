@@ -54,7 +54,29 @@ public class Snake implements Drawable, Runnable {
                 p.y = this.getHead().y;
                 p.x = this.getHead().x + 1;
                 break;
+
         }
+
+        if (p.x == Constrains.BOARD_COL) {
+            p.x = 1;
+//            p.setX(1);
+//            p.setX(p.getX() + 1);
+        }
+        if (p.x == 0) {
+            p.x = Constrains.BOARD_COL;
+//            p.setX(frame.getCol());
+//            p.setX(p.getX() - 1);
+        }
+//            p.setY(0);
+        if (p.y == Constrains.BOARD_ROW) {
+            p.y = 1;
+//            p.setY(p.getY() + 1);
+        }
+        if (p.y == 0) {
+            p.y = Constrains.BOARD_ROW;
+//            p.setY(p.getY() - 1);
+        }
+
         return p;
     }
 

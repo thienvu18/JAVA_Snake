@@ -12,6 +12,7 @@ public class GameController implements Controller {
 
     private Model game;
     private Window rootView;
+    private int level;
 
     public GameController(Game game) {
         this.game = game;
@@ -52,23 +53,29 @@ public class GameController implements Controller {
 
     @Override
     public synchronized void turnSnakeLeft() {
-        ((Game)game).turnSnakeLeft();
+        ((Game) game).turnSnakeLeft();
     }
 
     @Override
     public synchronized void turnSnakeRight() {
-        ((Game)game).turnSnakeRight();
+        ((Game) game).turnSnakeRight();
     }
 
     @Override
     public synchronized void turnSnakeUp() {
-        ((Game)game).turnSnakeUp();
+        ((Game) game).turnSnakeUp();
     }
 
     @Override
     public synchronized void turnSnakeDown() {
-        ((Game)game).turnSnakeDown();
+        ((Game) game).turnSnakeDown();
     }
+
+    @Override
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
 
     @Override
     public void chooseLevel() {

@@ -18,7 +18,7 @@ public class Game implements Model, Runnable {
 
     public Game() {
         this.views = new ArrayList<>();
-        board = new Board(20, 20);
+        board = new Board(Constrains.BOARD_COL, Constrains.BOARD_ROW);
         apple = new Apple();
         snake = new Snake();
 
@@ -110,7 +110,10 @@ public class Game implements Model, Runnable {
 
             if (snake.isHitApple(apple)) {
                 System.out.println("Ăn");
+
                 apple = new Apple();
+
+
             }
 
             if (snake.isHitWall(board.getWidth(), board.getHeight())) {

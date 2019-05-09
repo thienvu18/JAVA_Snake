@@ -4,6 +4,9 @@ import java.awt.*;
 
 public class Constrains {
     public static final int POINT_SIZE = 30;
+    public static final int BOARD_COL = 20;
+    public static final int BOARD_ROW = 20;
+
     public static final Color CELL_COLOR_1 = new Color(170, 215, 81);
     public static final Color CELL_COLOR_2 = new Color(162, 209, 73);
     public static final String RES_APPLE = "resources/images/apple.png";
