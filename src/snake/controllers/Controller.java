@@ -23,7 +23,7 @@ public interface Controller {
 
     void setLevel(int level);
 
-    void chooseLevel();
+    int chooseLevel();
 
     void changeView(View view);
 }

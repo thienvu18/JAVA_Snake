@@ -22,7 +22,7 @@ public class Snake implements Drawable, Runnable {
 
     }
 
-    private Point getHead() {
+    public Point getHead() {
         return this.body.getLast();
     }
 
@@ -123,7 +123,9 @@ public class Snake implements Drawable, Runnable {
 
     public synchronized boolean isHitWall(int boardWidth, int boardHeight) {
         Point head = this.getHead();
-        if (head.x < 0 || head.x > boardWidth || head.y < 0 || head.y > boardHeight)
+        System.out.println(head.x);
+        System.out.println(head.y);
+        if (head.x == 1 || head.x == boardWidth || head.y == 1 || head.y == boardHeight)
             return true;
         return false;
     }

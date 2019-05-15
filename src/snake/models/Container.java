@@ -1,5 +1,6 @@
 package snake.models;
 
+import snake.models.abstractModels.Model;
 import snake.utils.constraints.Constrains;
 import snake.utils.enums.Direction;
 import snake.utils.enums.GameState;
@@ -8,21 +9,30 @@ import snake.views.View;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Game implements Model, Runnable {
+public class Container implements Model, Runnable {
     private ArrayList<View> views;
-
     private GameState state;
-    private Board board;
+    private GameBoard gameBoard;
     private Apple apple;
     private Snake snake;
+    private DeadBehavior deadBehavior;
 
-    public Game() {
+    public DeadBehavior getDeadBehavior() {
+        return deadBehavior;
+    }
+
+    public void setDeadBehavior(DeadBehavior deadBehavior) {
+        this.deadBehavior = deadBehavior;
+    }
+
+    public Container() {
         this.views = new ArrayList<>();
-        board = new Board(Constrains.BOARD_COL, Constrains.BOARD_ROW);
+        gameBoard = new GameBoard(Constrains.BOARD_COL, Constrains.BOARD_ROW);
         apple = new Apple();
         snake = new Snake();
 
         state = GameState.INITIALIZED;
+
     }
 
     public synchronized void turnSnakeLeft() {
@@ -95,7 +105,7 @@ public class Game implements Model, Runnable {
 
     @Override
     public void draw(Graphics2D g) {
-        board.draw(g);
+        gameBoard.draw(g);
         apple.draw(g);
         snake.draw(g);
     }
@@ -113,19 +123,25 @@ public class Game implements Model, Runnable {
 
                 apple = new Apple();
 
-
             }
-
-            if (snake.isHitWall(board.getWidth(), board.getHeight())) {
+        System.out.println(gameBoard.getWidth()+"/"+ gameBoard.getHeight());
+        System.out.println(snake.getHead().x);
+            if (deadBehavior.isDead(gameBoard.getWidth(), gameBoard.getHeight(), snake)){
                 snake.stop();
-                System.out.println("Cắn tường");
+                System.out.println("Game over");
                 break;
             }
 
-            if (snake.isHitSelf()) {
-                snake.stop();
-                System.out.println("Cắn thân");
-            }
+//            if (snake.isHitWall(gameBoard.getWidth(), gameBoard.getHeight())) {
+//                snake.stop();
+//                System.out.println("Cắn tường");
+//                break;
+//            }
+//
+//            if (snake.isHitSelf()) {
+//                snake.stop();
+//                System.out.println("Cắn thân");
+//            }
 
             this.notifyModelChange();
 

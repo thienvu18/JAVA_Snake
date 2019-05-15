@@ -1,7 +1,7 @@
 package snake.views;
 
 import snake.controllers.Controller;
-import snake.models.Model;
+import snake.models.abstractModels.Model;
 import snake.utils.Utils;
 import snake.utils.constraints.Constrains;
 
@@ -80,9 +80,9 @@ public class LevelView extends JPanel implements View {
         easybt.setContentAreaFilled(false);
         normalbt.setContentAreaFilled(false);
         hardbt.setContentAreaFilled(false);
-//        if(controller.getLevel() == 1){
+//        if(controller.chooseLevel() == 1){
 //            easybt.setForeground(Color.RED);
-//        }else if(controller.getLevel() == 2){
+//        }else if(controller.chooseLevel()  == 2){
 //            normalbt.setForeground(Color.RED);
 //        }else{
 //            hardbt.setForeground(Color.RED);
@@ -149,12 +149,23 @@ public class LevelView extends JPanel implements View {
             @Override
             public void mouseClicked(MouseEvent e) {
 //
-
                 if (!panel.contains(e.getPoint())) {
                     controller.changeView(parent);
                 }
-                System.out.println(e.getPoint());
-                System.out.println(panel.contains(e.getPoint()));
+                else {
+                    if (e.getSource() == easybt) {
+                        controller.setLevel(1);
+                    }
+                    if (e.getSource() == normalbt) {
+                        controller.setLevel(2);
+                    }
+                    if (e.getSource() == hardbt) {
+                        controller.setLevel(3);
+                    }
+                }
+//                System.out.println("level: " +  controller.chooseLevel());
+////                System.out.println(e.getPoint());
+//                System.out.println(panel.contains(e.getPoint()));
                 super.mouseClicked(e);
             }
 

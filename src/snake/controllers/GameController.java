@@ -1,8 +1,7 @@
 package snake.controllers;
 
 
-import snake.models.Game;
-import snake.models.Model;
+import snake.models.*;
 import snake.utils.constraints.Constrains;
 import snake.views.*;
 
@@ -10,41 +9,56 @@ import javax.swing.*;
 
 public class GameController implements Controller {
 
-    private Model game;
+    private Container container;
     private Window rootView;
     private int level;
 
-    public GameController(Game game) {
-        this.game = game;
-        rootView = Window.getInstance("Snake game", Constrains.WIDTH, Constrains.HEIGHT);
-        View menuView = new MenuView(game, this);
+    public GameController(Container container) {
+        this.container = container;
+        rootView = Window.getInstance("Snake Game", Constrains.WIDTH, Constrains.HEIGHT);
+        View menuView = new MenuView(container, this);
         rootView.changeView(menuView);
 
     }
 
     @Override
     public void newGame() {
-        View gameView = new GameView(game, this);
+        View gameView = new GameView(container, this);
+        System.out.println("Level: "+level);
+        switch (level) {
+            case 1:
+                container.setDeadBehavior(new Level1DeadBehavior());
+                break;
+            case 2:
+                container.setDeadBehavior(new Level2DeadBehavior());
+                break;
+            case 3:
+                container.setDeadBehavior(new Level3DeadBehavior());
+                break;
+            default:
+                container.setDeadBehavior(new Level2DeadBehavior());
+                break;
+        }
         rootView.changeView(gameView);
-        game.start();
+        container.start();
     }
 
     @Override
     public void pause() {
-        game.pause();
+        container.pause();
         System.out.println("Paused");
     }
 
     @Override
     public void resume() {
-        game.resume();
+        container.resume();
         System.out.println("Resumed");
     }
 
     @Override
     public void quit() {
 
-        if (JOptionPane.showConfirmDialog(rootView, "Are you sure to quit this game?", "Close game!",
+        if (JOptionPane.showConfirmDialog(rootView, "Are you sure to quit this container?", "Close container!",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
@@ -53,22 +67,22 @@ public class GameController implements Controller {
 
     @Override
     public synchronized void turnSnakeLeft() {
-        ((Game) game).turnSnakeLeft();
+        ((Container) container).turnSnakeLeft();
     }
 
     @Override
     public synchronized void turnSnakeRight() {
-        ((Game) game).turnSnakeRight();
+        ((Container) container).turnSnakeRight();
     }
 
     @Override
     public synchronized void turnSnakeUp() {
-        ((Game) game).turnSnakeUp();
+        ((Container) container).turnSnakeUp();
     }
 
     @Override
     public synchronized void turnSnakeDown() {
-        ((Game) game).turnSnakeDown();
+        ((Container) container).turnSnakeDown();
     }
 
     @Override
@@ -78,9 +92,10 @@ public class GameController implements Controller {
 
 
     @Override
-    public void chooseLevel() {
-        View levelView = new LevelView(rootView.getCurrentPanel(), game, this);
+    public int chooseLevel() {
+        View levelView = new LevelView(rootView.getCurrentPanel(), container, this);
         rootView.changeView(levelView);
+        return level;
 
     }
 

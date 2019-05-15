@@ -1,5 +1,6 @@
-package snake.models;
+package snake.models.abstractModels;
 
+import snake.models.Drawable;
 import snake.views.View;
 
 public interface Model extends Drawable {

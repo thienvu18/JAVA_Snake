@@ -1,7 +1,7 @@
 package snake.views;
 
 import snake.controllers.Controller;
-import snake.models.Model;
+import snake.models.abstractModels.Model;
 import snake.utils.constraints.Constrains;
 
 import javax.imageio.ImageIO;

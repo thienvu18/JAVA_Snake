@@ -1,11 +1,7 @@
 package snake;
 
-import snake.controllers.Controller;
 import snake.controllers.GameController;
-import snake.models.Game;
-import snake.views.Window;
-
-import javax.swing.*;
+import snake.models.Container;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,6 +10,6 @@ public class Main {
 //
 //        gameController.start();
 
-        new GameController(new Game());
+        new GameController(new Container());
     }
 }
