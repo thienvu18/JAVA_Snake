@@ -80,13 +80,13 @@ public class LevelView extends JPanel implements View {
         easybt.setContentAreaFilled(false);
         normalbt.setContentAreaFilled(false);
         hardbt.setContentAreaFilled(false);
-//        if(controller.chooseLevel() == 1){
-//            easybt.setForeground(Color.RED);
-//        }else if(controller.chooseLevel()  == 2){
-//            normalbt.setForeground(Color.RED);
-//        }else{
-//            hardbt.setForeground(Color.RED);
-//        }
+        if (game.getLevel() == 3) {
+            hardbt.setForeground(Color.RED);
+        } else if (game.getLevel() == 2) {
+            normalbt.setForeground(Color.RED);
+        } else{
+            easybt.setForeground(Color.RED);
+        }
         panel.add(easybt);
         panel.add(normalbt);
         panel.add(hardbt);
@@ -149,24 +149,33 @@ public class LevelView extends JPanel implements View {
             @Override
             public void mouseClicked(MouseEvent e) {
 //
+                super.mouseClicked(e);
                 if (!panel.contains(e.getPoint())) {
                     controller.changeView(parent);
-                }
-                else {
-                    if (e.getSource() == easybt) {
+                } else {
+                    JButton cmd = (JButton) e.getSource();
+                    if ( cmd.equals(easybt)) {
+                        easybt.setForeground(Color.RED);
+                        normalbt.setForeground(Color.BLACK);
+                        hardbt.setForeground(Color.BLACK);
                         controller.setLevel(1);
                     }
-                    if (e.getSource() == normalbt) {
+                    else if ( cmd.equals(normalbt)) {
+                        easybt.setForeground(Color.BLACK);
+                        normalbt.setForeground(Color.RED);
+                        hardbt.setForeground(Color.BLACK);
                         controller.setLevel(2);
                     }
-                    if (e.getSource() == hardbt) {
+                    else if ( cmd.equals(hardbt) ) {
+                        easybt.setForeground(Color.BLACK);
+                        normalbt.setForeground(Color.BLACK);
+                        hardbt.setForeground(Color.RED);
                         controller.setLevel(3);
                     }
                 }
 //                System.out.println("level: " +  controller.chooseLevel());
 ////                System.out.println(e.getPoint());
 //                System.out.println(panel.contains(e.getPoint()));
-                super.mouseClicked(e);
             }
 
         };

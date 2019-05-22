@@ -2,6 +2,7 @@ package snake.models;
 
 import snake.utils.constraints.Constrains;
 
+import java.awt.*;
 import java.util.Random;
 
 public class Point {
@@ -40,6 +41,7 @@ public class Point {
         return new Point(x, y);
     }
 
+
     @Override
     public boolean equals(Object obj) {
         // If the object is compared with itself then return true
@@ -58,7 +60,7 @@ public class Point {
 
         // Compare the data members and return accordingly
         return Integer.compare(x, c.x) == 0
-                && Double.compare(y, c.y) == 0;
+                && Integer.compare(y, c.y) == 0;
 
     }
 

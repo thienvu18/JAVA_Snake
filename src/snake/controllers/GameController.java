@@ -11,7 +11,7 @@ public class GameController implements Controller {
 
     private Container container;
     private Window rootView;
-    private int level;
+
 
     public GameController(Container container) {
         this.container = container;
@@ -24,8 +24,8 @@ public class GameController implements Controller {
     @Override
     public void newGame() {
         View gameView = new GameView(container, this);
-        System.out.println("Level: "+level);
-        switch (level) {
+        rootView.changeView(gameView);
+        switch (container.getLevel()) {
             case 1:
                 container.setDeadBehavior(new Level1DeadBehavior());
                 break;
@@ -34,12 +34,13 @@ public class GameController implements Controller {
                 break;
             case 3:
                 container.setDeadBehavior(new Level3DeadBehavior());
+//                container.setBoom(new Boom().draw(););
+
                 break;
             default:
-                container.setDeadBehavior(new Level2DeadBehavior());
+                container.setDeadBehavior(new Level1DeadBehavior());
                 break;
         }
-        rootView.changeView(gameView);
         container.start();
     }
 
@@ -87,22 +88,19 @@ public class GameController implements Controller {
 
     @Override
     public void setLevel(int level) {
-        this.level = level;
+        this.container.setLevel(level);
     }
 
 
     @Override
-    public int chooseLevel() {
+    public void chooseLevel() {
         View levelView = new LevelView(rootView.getCurrentPanel(), container, this);
         rootView.changeView(levelView);
-        return level;
-
     }
 
     @Override
-    public void changeView(View view) {
-        rootView.changeView(view);
+    public void changeView(View v) {
+        rootView.changeView(v);
     }
-
 
 }

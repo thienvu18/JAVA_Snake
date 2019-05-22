@@ -135,7 +135,7 @@ public class MenuView extends JPanel implements View {
                 if (e.getSource() == highscorebt) {
                 }
                 if (e.getSource() == levelbt) {
-                        controller.chooseLevel();
+                    controller.chooseLevel();
                 }
                 if (e.getSource() == optionbt) {
                 }
@@ -178,7 +178,7 @@ public class MenuView extends JPanel implements View {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyCode());
+//        System.out.println(e.getKeyCode());
     }
 
     @Override

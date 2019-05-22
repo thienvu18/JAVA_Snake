@@ -16,12 +16,13 @@ public class GameView extends JPanel implements View, FocusListener {
     private BoardView boardView;
     private JPanel pnNorth, pnMain;
     private JLabel labelScore;
+
     public GameView(Model game, Controller controller) {
         this.game = game;
         this.controller = controller;
         boardView = new BoardView(game, controller);
-
         setLayout(new BorderLayout());
+        game.addView(this);
         frameView();
         this.setFocusable(true);
         this.addFocusListener(this);
@@ -34,6 +35,8 @@ public class GameView extends JPanel implements View, FocusListener {
         pnMain = new JPanel();
         pnMain.setBackground(Constrains.BACKGROUND);
         labelScore = new JLabel("0");
+        setScore();
+
         ImageIcon imageIcon = new ImageIcon(
                 new ImageIcon(Constrains.RES_APPLE).getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
         JLabel labelApple = new JLabel();
@@ -43,8 +46,6 @@ public class GameView extends JPanel implements View, FocusListener {
         pnNorth.add(labelScore);
 
 
-
-
         pnMain.add(boardView);
         initLayout();
 
@@ -52,11 +53,15 @@ public class GameView extends JPanel implements View, FocusListener {
         add(pnMain, BorderLayout.CENTER);
     }
 
+    public void setScore() {
+        labelScore.setText(game.getScore() + "");
+    }
+
     private void initLayout() {
         SpringLayout layout = new SpringLayout();
 
-        int topMargin = (int)((Constrains.HEIGHT - pnNorth.getPreferredSize().getHeight() - boardView.getPreferredSize().getHeight()) / 2);
-        int leftMargin = (int)((Constrains.WIDTH  - boardView.getPreferredSize().getWidth()) / 2);
+        int topMargin = (int) ((Constrains.HEIGHT - pnNorth.getPreferredSize().getHeight() - boardView.getPreferredSize().getHeight()) / 2);
+        int leftMargin = (int) ((Constrains.WIDTH - boardView.getPreferredSize().getWidth()) / 2);
 
         layout.putConstraint(SpringLayout.NORTH, boardView, topMargin, SpringLayout.NORTH, this);
         layout.putConstraint(SpringLayout.WEST, boardView, leftMargin, SpringLayout.WEST, this);
@@ -65,7 +70,7 @@ public class GameView extends JPanel implements View, FocusListener {
 
     @Override
     public void render() {
-
+        setScore();
     }
 
     @Override
@@ -75,8 +80,7 @@ public class GameView extends JPanel implements View, FocusListener {
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-        switch (keyEvent.getKeyCode())
-        {
+        switch (keyEvent.getKeyCode()) {
             case KeyEvent.VK_LEFT:
                 controller.turnSnakeLeft();
 //                System.out.println("52");

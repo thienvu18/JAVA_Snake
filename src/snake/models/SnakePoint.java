@@ -93,22 +93,22 @@ public class SnakePoint {
             case NORTH:
                 if (direction == Direction.EAST) {
                     dx = Constrains.POINT_SIZE + 1;
-                } else  dx = 0;
+                } else dx = 0;
                 break;
             case SOUTH:
                 if (direction == Direction.EAST) {
                     dx = Constrains.POINT_SIZE + 1;
-                } else  dx = 0;
+                } else dx = 0;
                 break;
             case WEST:
                 if (direction == Direction.SOUTH) {
                     dy = Constrains.POINT_SIZE + 1;
-                } else  dy = 0;
+                } else dy = 0;
                 break;
             case EAST:
                 if (direction == Direction.SOUTH) {
                     dy = Constrains.POINT_SIZE + 1;
-                } else  dy = 0;
+                } else dy = 0;
                 break;
         }
 
@@ -117,27 +117,22 @@ public class SnakePoint {
 
     @Override
     public boolean equals(Object obj) {
-        // If the object is compared with itself then return true
         if (obj == this) {
             return true;
         }
 
-        /* Check if o is an instance of Complex or not
-          "null instanceof [type]" also returns false */
         if (!(obj instanceof Point)) {
             return false;
         }
 
-        // typecast o to Complex so that we can compare data members
         SnakePoint c = (SnakePoint) obj;
 
-        // Compare the data members and return accordingly
         return point.equals(c.point);
     }
 
     @Override
     public int hashCode() {
-        System.out.println(point.hashCode());
+//        System.out.println(point.hashCode());
         return point.hashCode();
     }
 }

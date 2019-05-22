@@ -33,8 +33,11 @@ public class Snake implements Drawable, Runnable {
     private void addHead(Point p) {
         this.body.addLast(p);
     }
+    public void addTail(Point p) {
+        this.body.addFirst(p);
+    }
 
-    private Point next() {
+    public Point next() {
         Point p = new Point();
 
         switch (direction) {
@@ -56,23 +59,25 @@ public class Snake implements Drawable, Runnable {
                 break;
 
         }
-
+        System.out.println("index x: " + p.x);
         if (p.x == Constrains.BOARD_COL) {
-            p.x = 1;
+            System.out.println("đụng");
+            p.x = 0;
+//            p.x = p.x - 1;
 //            p.setX(1);
 //            p.setX(p.getX() + 1);
         }
-        if (p.x == 0) {
+        if (p.x == 0 - 1) {
             p.x = Constrains.BOARD_COL;
 //            p.setX(frame.getCol());
 //            p.setX(p.getX() - 1);
         }
 //            p.setY(0);
         if (p.y == Constrains.BOARD_ROW) {
-            p.y = 1;
+            p.y = 0;
 //            p.setY(p.getY() + 1);
         }
-        if (p.y == 0) {
+        if (p.y == 0 - 1) {
             p.y = Constrains.BOARD_ROW;
 //            p.setY(p.getY() - 1);
         }
@@ -123,9 +128,9 @@ public class Snake implements Drawable, Runnable {
 
     public synchronized boolean isHitWall(int boardWidth, int boardHeight) {
         Point head = this.getHead();
-        System.out.println(head.x);
-        System.out.println(head.y);
-        if (head.x == 1 || head.x == boardWidth || head.y == 1 || head.y == boardHeight)
+//        System.out.println(head.x);
+//        System.out.println(head.y);
+        if (head.x ==0|| head.x == boardWidth || head.y == 0 || head.y == boardHeight)
             return true;
         return false;
     }
@@ -145,15 +150,32 @@ public class Snake implements Drawable, Runnable {
         return head.equals(apple.getPoint());
     }
 
+    public synchronized boolean isHitBoom(Boom boom) {
+        Point head = this.getHead();
+        return head.equals(boom.getPoint());
+    }
+
     @Override
     public void draw(Graphics2D g) {
         g.setStroke(new BasicStroke(Constrains.POINT_SIZE, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g.setColor(new Color(68, 114, 230));
+//// vẽ snake
+//        for (int i = 0; i < body.size() - 1; i++) {
+//
+//            g.drawLine(body.get(i).getCenterXInPixel(), body.get(i).getCenterYInPixel(),
+//                    body.get(i + 1).getCenterXInPixel(), body.get(i + 1).getCenterYInPixel());
+//
+//        }
+//        g.drawLine(body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel(),
+//                body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel());
 
-        for (int i = 0; i < body.size() - 1; i++) {
-            g.drawLine(body.get(i).getCenterXInPixel(), body.get(i).getCenterYInPixel(), body.get(i + 1).getCenterXInPixel(), body.get(i + 1).getCenterYInPixel());
+        for (int i = 0; i < body.size() ; i++) {
+            g.drawRect(body.get(i).getCenterXInPixel(), body.get(i).getCenterYInPixel(),
+                    5, 5);
         }
-        g.drawLine(body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel(), body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel());
+//        g.drawRect(body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel(),
+//                10, 10);
+//        }
     }
 
     @Override

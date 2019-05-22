@@ -1,5 +1,7 @@
 package snake.models;
 
+import snake.models.Drawable;
+import snake.models.Point;
 import snake.utils.constraints.Constrains;
 
 import javax.imageio.ImageIO;
@@ -8,13 +10,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Apple implements Drawable, Runnable {
-    private final String IMAGE_PATH = Constrains.RES_APPLE;
+public class Boom implements Drawable, Runnable {
+    private final String IMAGE_PATH = Constrains.BOOM;
     private BufferedImage bufferedImage = null;
     private Point point;
     private double currentScale = 1.0;
 
-    public Apple() {
+    public Boom() {
         try {
             bufferedImage = ImageIO.read(new File(IMAGE_PATH));
         } catch (IOException e) {
@@ -45,13 +47,17 @@ public class Apple implements Drawable, Runnable {
 
     @Override
     public void draw(Graphics2D g) {
-        Image image = bufferedImage.getScaledInstance((int) (Constrains.POINT_SIZE * currentScale), (int)(Constrains.POINT_SIZE * currentScale), Image.SCALE_SMOOTH);
+        Image image = bufferedImage.getScaledInstance((int) (Constrains.POINT_SIZE * currentScale), (int) (Constrains.POINT_SIZE * currentScale), Image.SCALE_SMOOTH);
 
         g.drawImage(image, point.getCenterXInPixel() - image.getWidth(null) / 2, point.getCenterYInPixel() - image.getHeight(null) / 2, null);
     }
 
     public Point getPoint() {
         return point;
+    }
+
+    public void setPoint(Point point) {
+        this.point = point;
     }
 
     @Override
@@ -64,7 +70,7 @@ public class Apple implements Drawable, Runnable {
             this.animation();
 
             timeDiff = System.currentTimeMillis() - beforeTime;
-            sleep = 1000/Constrains.ANIMATION_APPLE_FPS - timeDiff;
+            sleep = 1000 / Constrains.ANIMATION_APPLE_FPS - timeDiff;
             if (sleep < 0) {
                 sleep = 2;
             }

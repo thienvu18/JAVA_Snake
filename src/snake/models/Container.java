@@ -4,6 +4,7 @@ import snake.models.abstractModels.Model;
 import snake.utils.constraints.Constrains;
 import snake.utils.enums.Direction;
 import snake.utils.enums.GameState;
+import snake.views.GameView;
 import snake.views.View;
 
 import java.awt.*;
@@ -14,15 +15,47 @@ public class Container implements Model, Runnable {
     private GameState state;
     private GameBoard gameBoard;
     private Apple apple;
+    private ArrayList<Boom> booms;
     private Snake snake;
     private DeadBehavior deadBehavior;
+    private int score = 0;
+    private int level;
 
-    public DeadBehavior getDeadBehavior() {
-        return deadBehavior;
+    public int getLevel() {
+        return level;
+    }
+
+    @Override
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    @Override
+    public ArrayList<Boom> getBooms() {
+        return booms;
+    }
+
+    @Override
+    public Snake getSnake() {
+        return snake;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+        if (level == 3) {
+            for (int i = 0; i < 5; i++) {
+                booms.add(new Boom());
+            }
+
+        }
     }
 
     public void setDeadBehavior(DeadBehavior deadBehavior) {
         this.deadBehavior = deadBehavior;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public Container() {
@@ -30,7 +63,7 @@ public class Container implements Model, Runnable {
         gameBoard = new GameBoard(Constrains.BOARD_COL, Constrains.BOARD_ROW);
         apple = new Apple();
         snake = new Snake();
-
+        booms = new ArrayList<>();
         state = GameState.INITIALIZED;
 
     }
@@ -77,7 +110,7 @@ public class Container implements Model, Runnable {
     @Override
     public synchronized void start() {
         snake.start();
-        apple.start();
+//        apple.start();
         Thread thread = new Thread(this);
         thread.start();
     }
@@ -105,9 +138,13 @@ public class Container implements Model, Runnable {
 
     @Override
     public void draw(Graphics2D g) {
+
         gameBoard.draw(g);
         apple.draw(g);
         snake.draw(g);
+        for (Boom boom : booms) {
+            boom.draw(g);
+        }
     }
 
     @Override
@@ -120,29 +157,19 @@ public class Container implements Model, Runnable {
 
             if (snake.isHitApple(apple)) {
                 System.out.println("Ăn");
-
+                score++;
+                System.out.println("Diem: " + score);
                 apple = new Apple();
-
+                snake.addTail(snake.next());
+                this.notifyModelChange();
             }
-        System.out.println(gameBoard.getWidth()+"/"+ gameBoard.getHeight());
-        System.out.println(snake.getHead().x);
-            if (deadBehavior.isDead(gameBoard.getWidth(), gameBoard.getHeight(), snake)){
+//        System.out.println(gameBoard.getWidth()+"/"+ gameBoard.getHeight());
+//        System.out.println(snake.getHead().x);
+            if (deadBehavior.isDead(this)) {
                 snake.stop();
                 System.out.println("Game over");
                 break;
             }
-
-//            if (snake.isHitWall(gameBoard.getWidth(), gameBoard.getHeight())) {
-//                snake.stop();
-//                System.out.println("Cắn tường");
-//                break;
-//            }
-//
-//            if (snake.isHitSelf()) {
-//                snake.stop();
-//                System.out.println("Cắn thân");
-//            }
-
             this.notifyModelChange();
 
             timeDiff = System.currentTimeMillis() - beforeTime;

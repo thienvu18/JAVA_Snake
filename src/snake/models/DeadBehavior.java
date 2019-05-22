@@ -1,5 +1,7 @@
 package snake.models;
 
+import snake.models.abstractModels.Model;
+
 public interface DeadBehavior {
-    boolean isDead(int boardWidth, int boardHeight, Snake snake);
+    boolean isDead(Model nodel);
 }
