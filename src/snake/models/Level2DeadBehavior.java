@@ -1,7 +1,5 @@
 package snake.models;
 
-import snake.models.abstractModels.Model;
-
 public class Level2DeadBehavior implements DeadBehavior {
 
 

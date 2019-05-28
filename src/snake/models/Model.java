@@ -1,4 +1,4 @@
-package snake.models.abstractModels;
+package snake.models;
 
 import snake.models.Boom;
 import snake.models.Drawable;

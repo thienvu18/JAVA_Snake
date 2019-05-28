@@ -57,7 +57,7 @@ public class GameController implements Controller {
 
     @Override
     public void highScore() {
-        if (JOptionPane.showConfirmDialog(rootView, "Số điểm cao nhất của bạn là: 1000", "High Score",
+        if (JOptionPane.showConfirmDialog(rootView, "High Score: 1000", "High Score",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION) == JOptionPane.DEFAULT_OPTION) {
         }
     }

@@ -1,7 +1,7 @@
 package snake.views;
 
 import snake.controllers.Controller;
-import snake.models.abstractModels.Model;
+import snake.models.Model;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,6 +41,7 @@ public class BoardView extends JPanel implements View, FocusListener {
 
     @Override
     public void render() {
+
         this.repaint();
     }
 
@@ -65,6 +66,7 @@ public class BoardView extends JPanel implements View, FocusListener {
 
     @Override
     public void focusLost(FocusEvent e) {
+
         controller.pause();
     }
 }

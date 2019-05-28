@@ -1,14 +1,14 @@
 package snake.views;
 
 import snake.controllers.Controller;
-import snake.models.abstractModels.Model;
+import snake.models.Model;
 import snake.utils.constraints.Constrains;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameView extends JPanel implements View {
+public class GameView extends JPanel implements View, FocusListener {
     private Model game;
     private Controller controller;
     private BoardView boardView;
@@ -24,6 +24,7 @@ public class GameView extends JPanel implements View {
         game.addView(this);
         frameView();
         this.setFocusable(true);
+        this.addFocusListener(this);
         this.addKeyListener(this);
     }
 
@@ -117,7 +118,6 @@ public class GameView extends JPanel implements View {
 
     @Override
     public void keyTyped(KeyEvent keyEvent) {
-//        System.out.println("gameview");
     }
 
     @Override
@@ -125,7 +125,6 @@ public class GameView extends JPanel implements View {
         switch (keyEvent.getKeyCode()) {
             case KeyEvent.VK_LEFT:
                 controller.turnSnakeLeft();
-//                System.out.println("52");
                 break;
             case KeyEvent.VK_RIGHT:
                 controller.turnSnakeRight();
@@ -145,4 +144,13 @@ public class GameView extends JPanel implements View {
 
     }
 
+    @Override
+    public void focusGained(FocusEvent focusEvent) {
+
+    }
+
+    @Override
+    public void focusLost(FocusEvent focusEvent) {
+
+    }
 }

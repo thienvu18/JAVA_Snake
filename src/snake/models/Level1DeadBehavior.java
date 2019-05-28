@@ -1,7 +1,5 @@
 package snake.models;
 
-import snake.models.abstractModels.Model;
-
 public class Level1DeadBehavior implements DeadBehavior {
     @Override
     public boolean isDead(Model model) {

@@ -1,7 +1,7 @@
 package snake.views;
 
 import snake.controllers.Controller;
-import snake.models.abstractModels.Model;
+import snake.models.Model;
 import snake.utils.CustomPanel;
 import snake.utils.Utils;
 import snake.utils.constraints.Constrains;

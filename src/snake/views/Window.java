@@ -12,7 +12,6 @@ public class Window extends JFrame {
         this.getContentPane().setPreferredSize(new Dimension(width, height));
         this.getContentPane().setMaximumSize(new Dimension(width, height));
         this.getContentPane().setMinimumSize(new Dimension(width, height));
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.pack();

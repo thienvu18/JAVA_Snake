@@ -1,10 +1,8 @@
 package snake.models;
 
-import snake.models.abstractModels.Model;
 import snake.utils.constraints.Constrains;
 import snake.utils.enums.Direction;
 import snake.utils.enums.GameState;
-import snake.views.GameView;
 import snake.views.View;
 
 import java.awt.*;
@@ -139,7 +137,7 @@ public class Container implements Model, Runnable {
         if (state == GameState.PAUSING) {
             state = GameState.PLAYING;
             System.out.println(state);
-            snake.start();
+            this.start();
         }
     }
 
@@ -159,15 +157,15 @@ public class Container implements Model, Runnable {
 
         long beforeTime, timeDiff, sleep;
         beforeTime = System.currentTimeMillis();
-        System.out.println(state+ "run");
-        while (state == GameState.PLAYING ||state == GameState.INITIALIZED ) {
+        System.out.println(state + "run");
+        while (state == GameState.PLAYING || state == GameState.INITIALIZED) {
 
             if (snake.isHitApple(apple)) {
                 score++;
                 snake.addTail(snake.next());
                 apple = new Apple();
                 this.notifyModelChange();
-                
+
                 System.out.println("Ăn");
                 System.out.println("Diem: " + score);
             }

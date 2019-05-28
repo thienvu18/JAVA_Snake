@@ -1,7 +1,5 @@
 package snake.models;
 
-import snake.models.abstractModels.Model;
-
 import java.util.ArrayList;
 
 public class Level3DeadBehavior implements DeadBehavior {

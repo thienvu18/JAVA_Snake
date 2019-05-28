@@ -1,13 +1,12 @@
 package snake.views;
 
 import snake.controllers.Controller;
-import snake.models.abstractModels.Model;
+import snake.models.Model;
 import snake.utils.CustomPanel;
 import snake.utils.Utils;
 import snake.utils.constraints.Constrains;
 
 import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
 
 public class HelpView extends JPanel implements View {
 
@@ -72,7 +70,7 @@ public class HelpView extends JPanel implements View {
 
         JLabel t = new JLabel("<html> - Click New Game to start playing the game <br>"
                 + "- Click High Score to see the player's high score <br>"
-                + "- Click level to select the difficulty when playing the game <br>"
+                + "- Click Level to select the difficulty when playing the game <br>"
                 + "- Click Quit to exit the game screen <br> <br> </html>", JLabel.CENTER);
         pnLabel.setLayout(new BorderLayout());
         pnLabel.add(lbHelp, BorderLayout.NORTH);

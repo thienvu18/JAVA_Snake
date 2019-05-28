@@ -113,7 +113,7 @@ public class Snake implements Drawable, Runnable {
     public synchronized void start() {
         Thread thread = new Thread(this);
         thread.start();
-//        running = true;
+        running = true;
     }
 
     public synchronized void stop() {
