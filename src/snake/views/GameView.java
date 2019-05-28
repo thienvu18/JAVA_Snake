@@ -46,9 +46,9 @@ public class GameView extends JPanel implements View, FocusListener {
         panelCenterNorth.setLocation(20, 0);
 //        pnNorth.add(panelCenterNorth);
         ImageIcon pause = new ImageIcon(
-                new ImageIcon(Constrains.PAUSE).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+                new ImageIcon(Constrains.PAUSE).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
         ImageIcon resum = new ImageIcon(
-                new ImageIcon(Constrains.RESUM).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+                new ImageIcon(Constrains.RESUM).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
 
         btnPause = new JButton(pause);
         btnPause.setBorder(null);
@@ -64,10 +64,16 @@ public class GameView extends JPanel implements View, FocusListener {
         btnResum.setContentAreaFilled(false);
         btnResum.addMouseListener(addEvent());
 
+
+
+
+
         pnNorth.add(labelApple);
         pnNorth.add(labelScore);
-        pnNorth.add(btnPause);
-        pnNorth.add(btnResum);
+//        pnNorth.add(btnPause);
+//        pnNorth.add(btnResum);
+        pnNorth.add(new ButtonBorder(btnPause));
+        pnNorth.add(new ButtonBorder(btnResum));
 
 
         pnMain.add(boardView);
