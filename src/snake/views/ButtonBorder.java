@@ -30,7 +30,7 @@ public class ButtonBorder extends ButtonDecorate {
         super.paint(g);
         if (mouse_over) {
             Dimension size = super.getSize();
-            g.setColor(Color.yellow);
+            g.setColor(Color.YELLOW);
             g.drawRect(0, 0, size.width - 1, size.height - 1);
             g.drawLine(size.width - 2, 0, size.width - 2, size.height - 1);
             g.drawLine(0, size.height - 2, size.width - 2, size.height - 2);
