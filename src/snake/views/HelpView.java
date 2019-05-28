@@ -132,19 +132,6 @@ public class HelpView extends JPanel implements View {
 
     }
 
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
 
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-
-    }
 }
 

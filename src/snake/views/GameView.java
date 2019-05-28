@@ -1,6 +1,7 @@
 package snake.views;
 
 import snake.controllers.Controller;
+import snake.controllers.GameAction;
 import snake.models.Model;
 import snake.utils.constraints.Constrains;
 
@@ -8,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameView extends JPanel implements View, FocusListener {
+public class GameView extends JPanel implements View {
     private Model game;
     private Controller controller;
     private BoardView boardView;
@@ -23,9 +24,15 @@ public class GameView extends JPanel implements View, FocusListener {
         setLayout(new BorderLayout());
         game.addView(this);
         frameView();
-        this.setFocusable(true);
-        this.addFocusListener(this);
-        this.addKeyListener(this);
+        addAction();
+    }
+
+    public JButton getBtnResum() {
+        return btnResum;
+    }
+
+    public JButton getBtnPause() {
+        return btnPause;
     }
 
     public void frameView() {
@@ -55,17 +62,13 @@ public class GameView extends JPanel implements View, FocusListener {
         btnPause.setVisible(true);
         btnPause.setFocusPainted(false);
         btnPause.setContentAreaFilled(false);
-        btnPause.addMouseListener(addEvent());
+
 
         btnResum = new JButton(resum);
         btnResum.setBorder(null);
         btnResum.setVisible(false);
         btnResum.setFocusPainted(false);
         btnResum.setContentAreaFilled(false);
-        btnResum.addMouseListener(addEvent());
-
-
-
 
 
         pnNorth.add(labelApple);
@@ -83,27 +86,14 @@ public class GameView extends JPanel implements View, FocusListener {
         add(pnMain, BorderLayout.CENTER);
     }
 
-    public MouseListener addEvent() {
-        return new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-
-                JButton cmd = (JButton) e.getSource();
-                if (cmd.equals(btnPause)) {
-                    btnPause.setVisible(false);
-                    btnResum.setVisible(true);
-                    controller.pause();
-                } else if (cmd.equals(btnResum)) {
-                    btnPause.setVisible(true);
-                    btnResum.setVisible(false);
-                    controller.resume();
-                }
-
-            }
-
-
-        };
+    public void addAction() {
+        GameAction g = new GameAction(controller, this);
+        btnPause.addMouseListener(g);
+        btnResum.addMouseListener(g);
+        this.addKeyListener(g);
+        this.setFocusable(true);
     }
+
 
     public void setScore() {
         labelScore.setText(game.getScore() + "");
@@ -127,41 +117,4 @@ public class GameView extends JPanel implements View, FocusListener {
     }
 
 
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        switch (keyEvent.getKeyCode()) {
-            case KeyEvent.VK_LEFT:
-                controller.turnSnakeLeft();
-                break;
-            case KeyEvent.VK_RIGHT:
-                controller.turnSnakeRight();
-                break;
-            case KeyEvent.VK_UP:
-                controller.turnSnakeUp();
-                break;
-            case KeyEvent.VK_DOWN:
-                controller.turnSnakeDown();
-                break;
-
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void focusGained(FocusEvent focusEvent) {
-
-    }
-
-    @Override
-    public void focusLost(FocusEvent focusEvent) {
-
-    }
 }

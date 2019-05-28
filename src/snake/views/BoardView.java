@@ -15,9 +15,9 @@ public class BoardView extends JPanel implements View, FocusListener {
         this.game = game;
         this.controller = controller;
         game.addView(this);
-       this.setPreferredSize(new Dimension(500, 500));
-       this.setMaximumSize(new Dimension(500, 500));
-       this.setMinimumSize(new Dimension(500, 500));
+        this.setPreferredSize(new Dimension(500, 500));
+        this.setMaximumSize(new Dimension(500, 500));
+        this.setMinimumSize(new Dimension(500, 500));
     }
 
     @Override
@@ -45,20 +45,6 @@ public class BoardView extends JPanel implements View, FocusListener {
         this.repaint();
     }
 
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-
-    }
 
     @Override
     public void focusGained(FocusEvent e) {

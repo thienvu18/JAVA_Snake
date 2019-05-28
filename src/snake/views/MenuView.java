@@ -1,6 +1,7 @@
 package snake.views;
 
 import snake.controllers.Controller;
+import snake.controllers.MenuAction;
 import snake.models.Model;
 import snake.utils.constraints.Constrains;
 
@@ -27,7 +28,7 @@ public class MenuView extends JPanel implements View {
         game.addView(this);
 
         this.setFocusable(true);
-        this.addKeyListener(this);
+//        this.addKeyListener(this);
         init();
     }
 
@@ -94,98 +95,19 @@ public class MenuView extends JPanel implements View {
     }
 
     public void mouseEventButton() {
-        newgamebt.addMouseListener(addEvent());
-        highscorebt.addMouseListener(addEvent());
-        levelbt.addMouseListener(addEvent());
-        help.addMouseListener(addEvent());
-        quitbt.addMouseListener(addEvent());
+        MenuAction menuAction = new MenuAction(this.controller);
+        newgamebt.addMouseListener(menuAction);
+        highscorebt.addMouseListener(menuAction);
+        levelbt.addMouseListener(menuAction);
+        help.addMouseListener(menuAction);
+        quitbt.addMouseListener(menuAction);
     }
 
-    public MouseListener addEvent() {
-        return new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                if (e.getSource() == newgamebt) {
-                    newgamebt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
-                }
-                if (e.getSource() == highscorebt) {
-                    highscorebt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
-                }
-                if (e.getSource() == levelbt) {
-                    levelbt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
-                }
-                if (e.getSource() == help) {
-                    help.setFont(new Font("SVN-Block", Font.PLAIN, 20));
-                }
-                if (e.getSource() == quitbt) {
-                    quitbt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
-                }
-
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-
-
-                if (e.getSource() == newgamebt) {
-                    controller.newGame();
-                }
-                if (e.getSource() == highscorebt) {
-                    controller.highScore();
-                }
-                if (e.getSource() == levelbt) {
-                    controller.chooseLevel();
-                }
-                if (e.getSource() == help) {
-                    controller.changeHelpView();
-                }
-
-                if (e.getSource() == quitbt) {
-                    controller.quit();
-                }
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if (e.getSource() == newgamebt) {
-
-                    newgamebt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
-                }
-                if (e.getSource() == highscorebt) {
-                    highscorebt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
-                }
-                if (e.getSource() == levelbt) {
-                    levelbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
-                }
-                if (e.getSource() == help) {
-                    help.setFont(new Font("SVN-Block", Font.PLAIN, 16));
-                }
-                if (e.getSource() == quitbt) {
-                    quitbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
-                }
-                super.mouseExited(e);
-            }
-        };
-    }
 
     @Override
     public void render() {
 
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
 
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-//        System.out.println(e.getKeyCode());
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
 }

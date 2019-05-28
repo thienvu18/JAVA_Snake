@@ -1,6 +1,7 @@
 package snake.views;
 
 import snake.controllers.Controller;
+import snake.controllers.LevelAction;
 import snake.models.Model;
 import snake.utils.CustomPanel;
 import snake.utils.Utils;
@@ -31,10 +32,26 @@ public class LevelView extends JPanel implements View {
         this.game = game;
         this.controller = controller;
 
-        this.setFocusable(true);
-        this.addKeyListener(this);
+//        this.setFocusable(true);
+//        this.addKeyListener(this);
         init();
 
+    }
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public JButton getHardbt() {
+        return hardbt;
+    }
+
+    public JButton getNormalbt() {
+        return normalbt;
+    }
+
+    public JButton getEasybt() {
+        return easybt;
     }
 
     private void init() {
@@ -108,70 +125,11 @@ public class LevelView extends JPanel implements View {
 
 
     public void mouseEventButton() {
-        easybt.addMouseListener(addEvent());
-        normalbt.addMouseListener(addEvent());
-        hardbt.addMouseListener(addEvent());
-        addMouseListener(addEvent());
-    }
-
-    public MouseListener addEvent() {
-        return new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                if (e.getSource() == easybt) {
-                    easybt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
-                }
-                if (e.getSource() == normalbt) {
-                    normalbt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
-                }
-                if (e.getSource() == hardbt) {
-                    hardbt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
-                }
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if (e.getSource() == easybt) {
-                    easybt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
-                }
-                if (e.getSource() == normalbt) {
-                    normalbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
-                }
-                if (e.getSource() == hardbt) {
-                    hardbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
-                }
-                super.mouseExited(e);
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if (!panel.contains(e.getPoint())) {
-                    controller.changeView(parent);
-                } else {
-                    JButton cmd = (JButton) e.getSource();
-                    if (cmd.equals(easybt)) {
-                        easybt.setForeground(Color.RED);
-                        normalbt.setForeground(Color.BLACK);
-                        hardbt.setForeground(Color.BLACK);
-                        controller.setLevel(1);
-                    } else if (cmd.equals(normalbt)) {
-                        easybt.setForeground(Color.BLACK);
-                        normalbt.setForeground(Color.RED);
-                        hardbt.setForeground(Color.BLACK);
-                        controller.setLevel(2);
-                    } else if (cmd.equals(hardbt)) {
-                        easybt.setForeground(Color.BLACK);
-                        normalbt.setForeground(Color.BLACK);
-                        hardbt.setForeground(Color.RED);
-                        controller.setLevel(3);
-                    }
-                }
-            }
-
-        };
+        LevelAction levelAction = new LevelAction(controller, parent, this);
+        easybt.addMouseListener(levelAction);
+        normalbt.addMouseListener(levelAction);
+        hardbt.addMouseListener(levelAction);
+        addMouseListener(levelAction);
     }
 
 
@@ -180,20 +138,6 @@ public class LevelView extends JPanel implements View {
 
     }
 
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-
-    }
 
 
 }
