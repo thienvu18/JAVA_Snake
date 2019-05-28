@@ -22,7 +22,14 @@ public class Apple implements Drawable, Runnable {
         }
         point = Point.getRandomPoint(20, 20);
         start();
+
+
     }
+
+//    public Point getPoint() {
+//
+//        return point;
+//    }
 
     private synchronized void animation() {
         int d = 1;
@@ -45,7 +52,7 @@ public class Apple implements Drawable, Runnable {
 
     @Override
     public void draw(Graphics2D g) {
-        Image image = bufferedImage.getScaledInstance((int) (Constrains.POINT_SIZE * currentScale), (int)(Constrains.POINT_SIZE * currentScale), Image.SCALE_SMOOTH);
+        Image image = bufferedImage.getScaledInstance((int) (Constrains.POINT_SIZE * currentScale), (int) (Constrains.POINT_SIZE * currentScale), Image.SCALE_SMOOTH);
 
         g.drawImage(image, point.getCenterXInPixel() - image.getWidth(null) / 2, point.getCenterYInPixel() - image.getHeight(null) / 2, null);
     }
@@ -64,7 +71,7 @@ public class Apple implements Drawable, Runnable {
             this.animation();
 
             timeDiff = System.currentTimeMillis() - beforeTime;
-            sleep = 1000/Constrains.ANIMATION_APPLE_FPS - timeDiff;
+            sleep = 1000 / Constrains.ANIMATION_APPLE_FPS - timeDiff;
             if (sleep < 0) {
                 sleep = 2;
             }

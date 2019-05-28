@@ -6,16 +6,15 @@ import snake.utils.constraints.Constrains;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
-public class GameView extends JPanel implements View, FocusListener {
+public class GameView extends JPanel implements View {
     private Model game;
     private Controller controller;
     private BoardView boardView;
     private JPanel pnNorth, pnMain;
     private JLabel labelScore;
+    private JButton btnPause, btnResum;
 
     public GameView(Model game, Controller controller) {
         this.game = game;
@@ -25,7 +24,6 @@ public class GameView extends JPanel implements View, FocusListener {
         game.addView(this);
         frameView();
         this.setFocusable(true);
-        this.addFocusListener(this);
         this.addKeyListener(this);
     }
 
@@ -35,15 +33,39 @@ public class GameView extends JPanel implements View, FocusListener {
         pnMain = new JPanel();
         pnMain.setBackground(Constrains.BACKGROUND);
         labelScore = new JLabel("0");
-        setScore();
-
+        labelScore.setForeground(Color.WHITE);
         ImageIcon imageIcon = new ImageIcon(
                 new ImageIcon(Constrains.RES_APPLE).getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
         JLabel labelApple = new JLabel();
         labelApple.setIcon(imageIcon);
         pnNorth.setBackground(Constrains.BACKGROUND_NORTH);
+
+        JPanel panelCenterNorth = new JPanel();
+        panelCenterNorth.setBackground(Color.GREEN);
+        panelCenterNorth.setLocation(20, 0);
+//        pnNorth.add(panelCenterNorth);
+        ImageIcon pause = new ImageIcon(
+                new ImageIcon(Constrains.PAUSE).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+        ImageIcon resum = new ImageIcon(
+                new ImageIcon(Constrains.RESUM).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+
+        btnPause = new JButton(pause);
+        btnPause.setBorder(null);
+        btnPause.setFocusPainted(false);
+
+        btnPause.setContentAreaFilled(false);
+        btnPause.addMouseListener(addEvent());
+
+        btnResum = new JButton(resum);
+        btnResum.setBorder(null);
+        btnResum.setFocusPainted(false);
+        btnResum.setContentAreaFilled(false);
+        btnResum.addMouseListener(addEvent());
+
         pnNorth.add(labelApple);
         pnNorth.add(labelScore);
+        pnNorth.add(btnPause);
+        pnNorth.add(btnResum);
 
 
         pnMain.add(boardView);
@@ -53,8 +75,31 @@ public class GameView extends JPanel implements View, FocusListener {
         add(pnMain, BorderLayout.CENTER);
     }
 
+    public MouseListener addEvent() {
+        return new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                JButton cmd = (JButton) e.getSource();
+                if (cmd.equals(btnPause)) {
+                    controller.pause();
+                } else if (cmd.equals(btnResum)) {
+                    controller.resume();
+                }
+
+            }
+
+
+        };
+    }
+
     public void setScore() {
         labelScore.setText(game.getScore() + "");
+    }
+
+    @Override
+    public void render() {
+        setScore();
     }
 
     private void initLayout() {
@@ -66,12 +111,9 @@ public class GameView extends JPanel implements View, FocusListener {
         layout.putConstraint(SpringLayout.NORTH, boardView, topMargin, SpringLayout.NORTH, this);
         layout.putConstraint(SpringLayout.WEST, boardView, leftMargin, SpringLayout.WEST, this);
         pnMain.setLayout(layout);
+
     }
 
-    @Override
-    public void render() {
-        setScore();
-    }
 
     @Override
     public void keyTyped(KeyEvent keyEvent) {
@@ -103,13 +145,4 @@ public class GameView extends JPanel implements View, FocusListener {
 
     }
 
-    @Override
-    public void focusGained(FocusEvent focusEvent) {
-
-    }
-
-    @Override
-    public void focusLost(FocusEvent focusEvent) {
-
-    }
 }

@@ -11,6 +11,8 @@ public interface Controller {
 
     void resume();
 
+    void highScore();
+
     void quit();
 
     void turnSnakeLeft();
@@ -26,4 +28,6 @@ public interface Controller {
     void chooseLevel();
 
     void changeView(View v);
+
+    void changeHelpView();
 }

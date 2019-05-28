@@ -28,7 +28,7 @@ public class Window extends JFrame {
     }
 
     public void changeView(View view) {
-        this.setContentPane((JPanel)view);
+        this.setContentPane((JPanel) view);
         this.getContentPane().requestFocus();
         this.revalidate();
         this.setVisible(true);

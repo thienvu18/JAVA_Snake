@@ -11,6 +11,9 @@ public class Constrains {
     public static final Color CELL_COLOR_2 = new Color(162, 209, 73);
     public static final String RES_APPLE = "resources/images/apple.png";
     public static final String BOOM = "resources/images/boom.png";
+    public static final String VIEW_HELP = "resources/images/help.png";
+    public static final String PAUSE = "resources/images/resum.png";
+    public static final String RESUM = "resources/images/pause.png";
 
     public static final String VIEW_GAME = "resources/images/viewgame.jpg";
     public static final String VIEW_LEVEL = "resources/images/level.jpg";

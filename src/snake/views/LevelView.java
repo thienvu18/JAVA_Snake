@@ -2,6 +2,7 @@ package snake.views;
 
 import snake.controllers.Controller;
 import snake.models.abstractModels.Model;
+import snake.utils.CustomPanel;
 import snake.utils.Utils;
 import snake.utils.constraints.Constrains;
 
@@ -56,15 +57,11 @@ public class LevelView extends JPanel implements View {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         panel = new CustomPanel(image);
-
         panel.setLayout(new GridLayout(3, 1, 5, 5));
         panel.setPreferredSize(new Dimension(200, 250));
         panel.setMaximumSize(new Dimension(200, 250));
         panel.setMinimumSize(new Dimension(200, 250));
-//        panel.setSize(new Dimension(160, 210));
         easybt = new JButton("Easy");
         normalbt = new JButton("Normal");
         hardbt = new JButton("Hard");
@@ -84,7 +81,7 @@ public class LevelView extends JPanel implements View {
             hardbt.setForeground(Color.RED);
         } else if (game.getLevel() == 2) {
             normalbt.setForeground(Color.RED);
-        } else{
+        } else {
             easybt.setForeground(Color.RED);
         }
         panel.add(easybt);
@@ -102,8 +99,10 @@ public class LevelView extends JPanel implements View {
     private void initLayout() {
         SpringLayout layout = new SpringLayout();
 
-        layout.putConstraint(SpringLayout.NORTH, panel, (int) ((Constrains.HEIGHT - panel.getPreferredSize().getHeight()) / 2), SpringLayout.NORTH, this);
-        layout.putConstraint(SpringLayout.WEST, panel, (int) ((Constrains.WIDTH - panel.getPreferredSize().getWidth()) / 2), SpringLayout.WEST, this);
+        layout.putConstraint(SpringLayout.NORTH, panel, (int) ((Constrains.HEIGHT - panel.getPreferredSize().getHeight()) / 2),
+                SpringLayout.NORTH, this);
+        layout.putConstraint(SpringLayout.WEST, panel, (int) ((Constrains.WIDTH - panel.getPreferredSize().getWidth()) / 2),
+                SpringLayout.WEST, this);
         this.setLayout(layout);
     }
 
@@ -148,34 +147,28 @@ public class LevelView extends JPanel implements View {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-//
                 super.mouseClicked(e);
                 if (!panel.contains(e.getPoint())) {
                     controller.changeView(parent);
                 } else {
                     JButton cmd = (JButton) e.getSource();
-                    if ( cmd.equals(easybt)) {
+                    if (cmd.equals(easybt)) {
                         easybt.setForeground(Color.RED);
                         normalbt.setForeground(Color.BLACK);
                         hardbt.setForeground(Color.BLACK);
                         controller.setLevel(1);
-                    }
-                    else if ( cmd.equals(normalbt)) {
+                    } else if (cmd.equals(normalbt)) {
                         easybt.setForeground(Color.BLACK);
                         normalbt.setForeground(Color.RED);
                         hardbt.setForeground(Color.BLACK);
                         controller.setLevel(2);
-                    }
-                    else if ( cmd.equals(hardbt) ) {
+                    } else if (cmd.equals(hardbt)) {
                         easybt.setForeground(Color.BLACK);
                         normalbt.setForeground(Color.BLACK);
                         hardbt.setForeground(Color.RED);
                         controller.setLevel(3);
                     }
                 }
-//                System.out.println("level: " +  controller.chooseLevel());
-////                System.out.println(e.getPoint());
-//                System.out.println(panel.contains(e.getPoint()));
             }
 
         };
@@ -201,18 +194,6 @@ public class LevelView extends JPanel implements View {
     public void keyReleased(KeyEvent keyEvent) {
 
     }
-}
 
-class CustomPanel extends JPanel {
-    BufferedImage background;
 
-    public CustomPanel(BufferedImage background) {
-        this.background = background;
-    }
-
-    @Override
-    protected void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
-        graphics.drawImage(background, 0, 0, getWidth(), getHeight(), null);
-    }
 }

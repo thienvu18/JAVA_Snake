@@ -109,23 +109,28 @@ public class Container implements Model, Runnable {
 
     @Override
     public synchronized void start() {
+
         snake.start();
-//        apple.start();
         Thread thread = new Thread(this);
         thread.start();
+
+
     }
 
     @Override
     public synchronized void stop() {
         if (state == GameState.PLAYING || state == GameState.PAUSING) {
             state = GameState.STOPPED;
+            snake.stop();
         }
     }
 
     @Override
     public synchronized void pause() {
-        if (state == GameState.PLAYING) {
+        if (state == GameState.PLAYING || state == GameState.INITIALIZED) {
             state = GameState.PAUSING;
+            snake.stop();
+            System.out.println(state);
         }
     }
 
@@ -133,6 +138,8 @@ public class Container implements Model, Runnable {
     public synchronized void resume() {
         if (state == GameState.PAUSING) {
             state = GameState.PLAYING;
+            System.out.println(state);
+            snake.start();
         }
     }
 
@@ -152,19 +159,18 @@ public class Container implements Model, Runnable {
 
         long beforeTime, timeDiff, sleep;
         beforeTime = System.currentTimeMillis();
-
-        while (true) {
+        System.out.println(state+ "run");
+        while (state == GameState.PLAYING ||state == GameState.INITIALIZED ) {
 
             if (snake.isHitApple(apple)) {
-                System.out.println("Ăn");
                 score++;
-                System.out.println("Diem: " + score);
-                apple = new Apple();
                 snake.addTail(snake.next());
+                apple = new Apple();
                 this.notifyModelChange();
+                
+                System.out.println("Ăn");
+                System.out.println("Diem: " + score);
             }
-//        System.out.println(gameBoard.getWidth()+"/"+ gameBoard.getHeight());
-//        System.out.println(snake.getHead().x);
             if (deadBehavior.isDead(this)) {
                 snake.stop();
                 System.out.println("Game over");

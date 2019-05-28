@@ -33,6 +33,7 @@ public class Snake implements Drawable, Runnable {
     private void addHead(Point p) {
         this.body.addLast(p);
     }
+
     public void addTail(Point p) {
         this.body.addFirst(p);
     }
@@ -63,23 +64,15 @@ public class Snake implements Drawable, Runnable {
         if (p.x == Constrains.BOARD_COL) {
             System.out.println("đụng");
             p.x = 0;
-//            p.x = p.x - 1;
-//            p.setX(1);
-//            p.setX(p.getX() + 1);
         }
         if (p.x == 0 - 1) {
             p.x = Constrains.BOARD_COL;
-//            p.setX(frame.getCol());
-//            p.setX(p.getX() - 1);
         }
-//            p.setY(0);
         if (p.y == Constrains.BOARD_ROW) {
             p.y = 0;
-//            p.setY(p.getY() + 1);
         }
         if (p.y == 0 - 1) {
             p.y = Constrains.BOARD_ROW;
-//            p.setY(p.getY() - 1);
         }
 
         return p;
@@ -120,17 +113,19 @@ public class Snake implements Drawable, Runnable {
     public synchronized void start() {
         Thread thread = new Thread(this);
         thread.start();
+//        running = true;
     }
 
     public synchronized void stop() {
         running = false;
+        System.out.println(running);
     }
 
     public synchronized boolean isHitWall(int boardWidth, int boardHeight) {
         Point head = this.getHead();
 //        System.out.println(head.x);
 //        System.out.println(head.y);
-        if (head.x ==0|| head.x == boardWidth || head.y == 0 || head.y == boardHeight)
+        if (head.x == 0 || head.x == boardWidth || head.y == 0 || head.y == boardHeight)
             return true;
         return false;
     }
@@ -169,7 +164,7 @@ public class Snake implements Drawable, Runnable {
 //        g.drawLine(body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel(),
 //                body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel());
 
-        for (int i = 0; i < body.size() ; i++) {
+        for (int i = 0; i < body.size(); i++) {
             g.drawRect(body.get(i).getCenterXInPixel(), body.get(i).getCenterYInPixel(),
                     5, 5);
         }

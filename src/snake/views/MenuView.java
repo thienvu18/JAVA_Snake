@@ -18,7 +18,7 @@ import java.io.IOException;
 public class MenuView extends JPanel implements View {
     private Model game;
     private Controller controller;
-    private JButton newgamebt, optionbt, quitbt, levelbt, highscorebt;
+    private JButton newgamebt, help, quitbt, levelbt, highscorebt;
 
     public MenuView(Model game, Controller controller) {
         this.game = game;
@@ -56,30 +56,30 @@ public class MenuView extends JPanel implements View {
         newgamebt = new JButton("New Game");
         levelbt = new JButton("Level");
         highscorebt = new JButton("High Score");
-        optionbt = new JButton("Option");
+        help = new JButton("Help");
         quitbt = new JButton("Quit");
         /** set font and size for text in button */
         newgamebt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
         highscorebt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
         levelbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
-        optionbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
+        help.setFont(new Font("SVN-Block", Font.PLAIN, 16));
         quitbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
         /** set no border for button */
         newgamebt.setBorder(null);
         highscorebt.setBorder(null);
         levelbt.setBorder(null);
-        optionbt.setBorder(null);
+        help.setBorder(null);
         quitbt.setBorder(null);
         /** hiden background button */
         newgamebt.setFocusPainted(false);
         highscorebt.setFocusPainted(false);
         levelbt.setFocusPainted(false);
-        optionbt.setFocusPainted(false);
+        help.setFocusPainted(false);
         quitbt.setFocusPainted(false);
         newgamebt.setContentAreaFilled(false);
         highscorebt.setContentAreaFilled(false);
         levelbt.setContentAreaFilled(false);
-        optionbt.setContentAreaFilled(false);
+        help.setContentAreaFilled(false);
         quitbt.setContentAreaFilled(false);
         /** no bug for hide background jbutton */
         p.setOpaque(false);
@@ -87,7 +87,7 @@ public class MenuView extends JPanel implements View {
         p.add(newgamebt);
         p.add(highscorebt);
         p.add(levelbt);
-        p.add(optionbt);
+        p.add(help);
         p.add(quitbt);
 //        p.setLocation(180, 200);
         add(p, BorderLayout.NORTH);
@@ -97,7 +97,7 @@ public class MenuView extends JPanel implements View {
         newgamebt.addMouseListener(addEvent());
         highscorebt.addMouseListener(addEvent());
         levelbt.addMouseListener(addEvent());
-        optionbt.addMouseListener(addEvent());
+        help.addMouseListener(addEvent());
         quitbt.addMouseListener(addEvent());
     }
 
@@ -115,8 +115,8 @@ public class MenuView extends JPanel implements View {
                 if (e.getSource() == levelbt) {
                     levelbt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
                 }
-                if (e.getSource() == optionbt) {
-                    optionbt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
+                if (e.getSource() == help) {
+                    help.setFont(new Font("SVN-Block", Font.PLAIN, 20));
                 }
                 if (e.getSource() == quitbt) {
                     quitbt.setFont(new Font("SVN-Block", Font.PLAIN, 20));
@@ -133,12 +133,15 @@ public class MenuView extends JPanel implements View {
                     controller.newGame();
                 }
                 if (e.getSource() == highscorebt) {
+                    controller.highScore();
                 }
                 if (e.getSource() == levelbt) {
                     controller.chooseLevel();
                 }
-                if (e.getSource() == optionbt) {
+                if (e.getSource() == help) {
+                    controller.changeHelpView();
                 }
+
                 if (e.getSource() == quitbt) {
                     controller.quit();
                 }
@@ -155,8 +158,8 @@ public class MenuView extends JPanel implements View {
                 if (e.getSource() == levelbt) {
                     levelbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
                 }
-                if (e.getSource() == optionbt) {
-                    optionbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
+                if (e.getSource() == help) {
+                    help.setFont(new Font("SVN-Block", Font.PLAIN, 16));
                 }
                 if (e.getSource() == quitbt) {
                     quitbt.setFont(new Font("SVN-Block", Font.PLAIN, 16));

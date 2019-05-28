@@ -34,7 +34,6 @@ public class GameController implements Controller {
                 break;
             case 3:
                 container.setDeadBehavior(new Level3DeadBehavior());
-//                container.setBoom(new Boom().draw(););
 
                 break;
             default:
@@ -54,6 +53,13 @@ public class GameController implements Controller {
     public void resume() {
         container.resume();
         System.out.println("Resumed");
+    }
+
+    @Override
+    public void highScore() {
+        if (JOptionPane.showConfirmDialog(rootView, "Số điểm cao nhất của bạn là: 1000", "High Score",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION) == JOptionPane.DEFAULT_OPTION) {
+        }
     }
 
     @Override
@@ -101,6 +107,12 @@ public class GameController implements Controller {
     @Override
     public void changeView(View v) {
         rootView.changeView(v);
+    }
+
+    @Override
+    public void changeHelpView() {
+        View helpView = new HelpView(rootView.getCurrentPanel(), container, this);
+        rootView.changeView(helpView);
     }
 
 }
