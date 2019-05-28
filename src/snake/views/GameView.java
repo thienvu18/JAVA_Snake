@@ -52,13 +52,14 @@ public class GameView extends JPanel implements View, FocusListener {
 
         btnPause = new JButton(pause);
         btnPause.setBorder(null);
+        btnPause.setVisible(true);
         btnPause.setFocusPainted(false);
-
         btnPause.setContentAreaFilled(false);
         btnPause.addMouseListener(addEvent());
 
         btnResum = new JButton(resum);
         btnResum.setBorder(null);
+        btnResum.setVisible(false);
         btnResum.setFocusPainted(false);
         btnResum.setContentAreaFilled(false);
         btnResum.addMouseListener(addEvent());
@@ -83,8 +84,12 @@ public class GameView extends JPanel implements View, FocusListener {
 
                 JButton cmd = (JButton) e.getSource();
                 if (cmd.equals(btnPause)) {
+                    btnPause.setVisible(false);
+                    btnResum.setVisible(true);
                     controller.pause();
                 } else if (cmd.equals(btnResum)) {
+                    btnPause.setVisible(true);
+                    btnResum.setVisible(false);
                     controller.resume();
                 }
 

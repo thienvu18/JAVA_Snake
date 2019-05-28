@@ -150,6 +150,7 @@ public class MenuView extends JPanel implements View {
             @Override
             public void mouseExited(MouseEvent e) {
                 if (e.getSource() == newgamebt) {
+
                     newgamebt.setFont(new Font("SVN-Block", Font.PLAIN, 16));
                 }
                 if (e.getSource() == highscorebt) {
