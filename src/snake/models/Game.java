@@ -19,6 +19,7 @@ public class Game implements Model, Runnable {
     private int score;
     private int level;
     private HighScore highScore = HighScore.getInstance();
+    private boolean[][] occupiedCells;
 
     public Game() {
         state = GameState.INITIALIZING;
@@ -80,19 +81,54 @@ public class Game implements Model, Runnable {
     private void init() {
         this.views = new ArrayList<>();
         gameBoard = new GameBoard(Constrains.BOARD_COL, Constrains.BOARD_ROW);
-        apple = new Apple();
+        occupiedCells = new boolean[Constrains.BOARD_COL][Constrains.BOARD_ROW];
+        generateApple();
         snake = new Snake();
         booms = new ArrayList<>();
         score = 0;
 
+
         state = GameState.INITIALIZED;
+
+
+    }
+
+    private synchronized void generateApple() {
+        apple = new Apple();
+        Point p = apple.getPoint();
+        while (occupiedCells[p.x][p.y]) {
+            apple = new Apple();
+        }
+
+    }
+
+    private synchronized void updateOccupied() {
+//        occupiedCells = new boolean[Constrains.BOARD_COL][Constrains.BOARD_ROW];
+
+        for (int i = 0; i < Constrains.BOARD_ROW; i++) {
+            for (int j = 0; j < Constrains.BOARD_COL; j++) {
+                occupiedCells[i][j] = false;
+            }
+        }
+
+        for (Point p : snake.getBody()) {
+            occupiedCells[p.x][p.y] = true;
+        }
+
+        for (Boom b : booms) {
+            Point p = b.getPoint();
+            occupiedCells[p.x][p.y] = true;
+        }
+        Point p = apple.getPoint();
+        occupiedCells[p.x][p.y] = true;
+
     }
 
     private void gamePlay() {
         if (snake.isHitApple(apple)) {
             score++;
             snake.eat();
-            apple = new Apple();
+            generateApple();
         }
         if (deadBehavior.isDead(this)) {
             snake.stepBack();
@@ -140,7 +176,7 @@ public class Game implements Model, Runnable {
 
     @Override
     public void newGame() {
-        if (state == GameState.PAUSING || state == GameState.PLAYING  ) {
+        if (state == GameState.PAUSING || state == GameState.PLAYING) {
             stop();
         }
         if (state == GameState.STOPPED || state == GameState.INITIALIZED) {
@@ -154,7 +190,13 @@ public class Game implements Model, Runnable {
         if (state == GameState.INITIALIZED || state == GameState.PAUSING) {
             if (level == 3) {
                 for (int i = 0; i < 5; i++) {
-                    booms.add(new Boom());
+
+                    Boom b = new Boom();
+                    Point p = b.getPoint();
+                    while (occupiedCells[p.x][p.y]) {
+                        b = new Boom();
+                    }
+                    booms.add(b);
                 }
 
             }
@@ -211,6 +253,7 @@ public class Game implements Model, Runnable {
                 init();
             } else if (state == GameState.PLAYING) {
                 gamePlay();
+                updateOccupied();
             }
 
             timeDiff = System.currentTimeMillis() - beforeTime;
