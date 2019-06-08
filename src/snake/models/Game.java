@@ -84,6 +84,12 @@ public class Game implements Model, Runnable {
         occupiedCells = new boolean[Constrains.BOARD_COL][Constrains.BOARD_ROW];
         generateApple();
         snake = new Snake();
+        if (booms != null) {
+            for (Boom b :
+                    booms) {
+                b.destroy();
+            }
+        }
         booms = new ArrayList<>();
         score = 0;
 
@@ -128,6 +134,7 @@ public class Game implements Model, Runnable {
         if (snake.isHitApple(apple)) {
             score++;
             snake.eat();
+            apple.destroy();
             generateApple();
         }
         if (deadBehavior.isDead(this)) {

@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/JAVA_Snake_jar</output-path>
     <root id="archive" name="JAVA_Snake.jar">
       <element id="module-output" name="JAVA_Snake" />
+      <element id="dir-copy" path="$PROJECT_DIR$/resources" />
     </root>
   </artifact>
 </component>
