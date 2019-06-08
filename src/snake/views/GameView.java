@@ -57,12 +57,12 @@ public class GameView extends JPanel implements View {
         panelCenterNorth.setLocation(20, 0);
 //        pnNorth.add(panelCenterNorth);
         ImageIcon pause = new ImageIcon(
-                new ImageIcon(Constrains.PAUSE).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
+                new ImageIcon(Constrains.PAUSE).getImage().getScaledInstance(60, 30, Image.SCALE_DEFAULT));
 
         ImageIcon resume = new ImageIcon(
-                new ImageIcon(Constrains.RESUME).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
+                new ImageIcon(Constrains.RESUME).getImage().getScaledInstance(60, 30, Image.SCALE_DEFAULT));
         ImageIcon menuGame = new ImageIcon(
-                new ImageIcon(Constrains.MENUGAME).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
+                new ImageIcon(Constrains.MENUGAME).getImage().getScaledInstance(60, 30, Image.SCALE_DEFAULT));
         btnPause = new JButton(pause);
         btnPause.setBorder(null);
         btnPause.setVisible(true);
