@@ -118,6 +118,7 @@ public class Game implements Model, Runnable {
         }
 
         for (Point p : snake.getBody()) {
+            if(p.x < 0 || p.x >= Constrains.BOARD_ROW || p.y <0 || p.y >= Constrains.BOARD_COL) continue;
             occupiedCells[p.x][p.y] = true;
         }
 
