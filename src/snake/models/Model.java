@@ -16,6 +16,8 @@ public interface Model extends Drawable {
 
     void notifyModelChange();
 
+    void newGame();
+
     void start();
 
     void stop();

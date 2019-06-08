@@ -12,9 +12,9 @@ public class HighScore {
     public static ArrayList<String> highScore = new ArrayList<>();
     public static int MAXELEMENT = 3;
     File file;
-    Container container;
-    public HighScore(Container container) {
-        this.container=container;
+    Game game;
+    public HighScore(Game game) {
+        this.game = game;
         checkFile();
         readFile();
     }
@@ -73,7 +73,7 @@ public class HighScore {
     }
 
     public void processHighScore() {
-            int score = container.getScore();
+            int score = game.getScore();
 //        int score = Shooter.powerUpsCollected + FlyingSaucer.saucersDead * 5;
         for (int i = 0; i < MAXELEMENT; i++) {
             if (score > (highScore.get(i).equalsIgnoreCase("null") ? 0 : Integer.parseInt(highScore.get(i)))) {

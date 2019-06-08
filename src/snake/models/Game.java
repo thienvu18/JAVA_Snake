@@ -1,6 +1,5 @@
 package snake.models;
 
-import snake.controllers.GameController;
 import snake.utils.constraints.Constrains;
 import snake.utils.enums.Direction;
 import snake.utils.enums.GameState;
@@ -9,9 +8,7 @@ import snake.views.View;
 import java.awt.*;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
-public class Container implements Model, Runnable {
+public class Game implements Model, Runnable {
 	private ArrayList<View> views;
 	private GameState state;
 	private GameBoard gameBoard;
@@ -19,7 +16,7 @@ public class Container implements Model, Runnable {
 	private ArrayList<Boom> booms;
 	private Snake snake;
 	private DeadBehavior deadBehavior;
-	private int score = 0;
+	private int score;
 	private int level;
 
 	public int getLevel() {
@@ -64,13 +61,41 @@ public class Container implements Model, Runnable {
 		return score;
 	}
 
-	public Container() {
+	public Game() {
+		state = GameState.INITIALIZING;
+		init();
+
+		Thread thread = new Thread(this);
+		thread.start();
+	}
+
+	private void init() {
 		this.views = new ArrayList<>();
 		gameBoard = new GameBoard(Constrains.BOARD_COL, Constrains.BOARD_ROW);
 		apple = new Apple();
 		snake = new Snake();
 		booms = new ArrayList<>();
+		score = 0;
+
 		state = GameState.INITIALIZED;
+	}
+
+	private void gamePlay() {
+		if (snake.isHitApple(apple)) {
+			score++;
+			snake.addTail(snake.next());
+			apple = new Apple();
+			this.notifyModelChange();
+
+			System.out.println("Ăn");
+			System.out.println("Diem: " + score);
+		}
+		if (deadBehavior.isDead(this)) {
+			snake.stop();
+			state = GameState.STOPPED;
+			System.out.println(state);
+		}
+		this.notifyModelChange();
 
 	}
 
@@ -112,12 +137,19 @@ public class Container implements Model, Runnable {
 	}
 
 	@Override
+	public void newGame() {
+		if (state == GameState.STOPPED || state == GameState.INITIALIZED) {
+			state = GameState.INITIALIZING;
+			init();
+		}
+	}
+
+	@Override
 	public synchronized void start() {
-
-		snake.start();
-		Thread thread = new Thread(this);
-		thread.start();
-
+		if (state == GameState.INITIALIZED || state == GameState.PAUSING) {
+			snake.start();
+			state = GameState.PLAYING;
+		}
 	}
 
 	@Override
@@ -140,8 +172,6 @@ public class Container implements Model, Runnable {
 	@Override
 	public synchronized void resume() {
 		if (state == GameState.PAUSING) {
-			state = GameState.PLAYING;
-			System.out.println(state);
 			this.start();
 		}
 	}
@@ -162,24 +192,14 @@ public class Container implements Model, Runnable {
 
 		long beforeTime, timeDiff, sleep;
 		beforeTime = System.currentTimeMillis();
-		System.out.println(state + "run");
-		while (state == GameState.PLAYING || state == GameState.INITIALIZED) {
 
-			if (snake.isHitApple(apple)) {
-				score++;
-				snake.addTail(snake.next());
-				apple = new Apple();
-				this.notifyModelChange();
+		while (true) {
 
-				System.out.println("Ăn");
-				System.out.println("Diem: " + score);
+			if (state == GameState.INITIALIZING) {
+				init();
+			} else if (state == GameState.PLAYING) {
+				gamePlay();
 			}
-			if (deadBehavior.isDead(this)) {
-				snake.stop();
-				state = GameState.STOPPED;
-				System.out.println(state);
-			}
-			this.notifyModelChange();
 
 			timeDiff = System.currentTimeMillis() - beforeTime;
 			sleep = 1000 / Constrains.FPS - timeDiff;

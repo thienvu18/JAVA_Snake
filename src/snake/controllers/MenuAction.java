@@ -2,8 +2,6 @@ package snake.controllers;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -43,7 +41,7 @@ public class MenuAction extends MouseAdapter {
 
         JButton bt = (JButton) e.getSource();
         if (bt.getText() == "New Game") {
-            controller.newGame();
+            controller.play();
         }
         if (bt.getText() == "High Score") {
             controller.highScore();

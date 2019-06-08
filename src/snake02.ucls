@@ -73,7 +73,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="snake.models.Container" project="JAVA_Snake" 
+  <class id="9" language="java" name="snake.models.Game" project="JAVA_Snake"
     file="/JAVA_Snake/src/snake/models/Container.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1125" y="633"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -254,7 +254,7 @@
   </association>  
   <association id="31">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="32" name="container"/>      
+      <attribute id="32" name="game"/>
       <multiplicity id="33" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    

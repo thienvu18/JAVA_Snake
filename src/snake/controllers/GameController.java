@@ -3,7 +3,7 @@ package snake.controllers;
 
 import javax.swing.JOptionPane;
 
-import snake.models.Container;
+import snake.models.Game;
 import snake.models.HighScore;
 import snake.models.Level1DeadBehavior;
 import snake.models.Level2DeadBehavior;
@@ -18,48 +18,57 @@ import snake.views.Window;
 
 public class GameController implements Controller {
 
-    private Container container;
+    private Game game;
     private Window rootView;
-    public GameController(Container container) {
-        this.container = container;
+    public GameController(Game game) {
+        this.game = game;
         rootView = Window.getInstance("Snake Game", Constrains.WIDTH, Constrains.HEIGHT);
-        View menuView = new MenuView(container, this);
+        View menuView = new MenuView(game, this);
         rootView.changeView(menuView);
     }
 
     @Override
     public void newGame() {
-        View gameView = new GameView(container, this);
+        game.newGame();
+        View menuView = new MenuView(game, this);
+        rootView.changeView(menuView);
+    }
+
+    @Override
+    public void play() {
+        View gameView = new GameView(game, this);
         rootView.changeView(gameView);
-        switch (container.getLevel()) {
+        switch (game.getLevel()) {
             case 1:
-                container.setDeadBehavior(new Level1DeadBehavior());
+                game.setDeadBehavior(new Level1DeadBehavior());
                 break;
             case 2:
-                container.setDeadBehavior(new Level2DeadBehavior());
+                game.setDeadBehavior(new Level2DeadBehavior());
                 break;
             case 3:
-                container.setDeadBehavior(new Level3DeadBehavior());
+                game.setDeadBehavior(new Level3DeadBehavior());
 
                 break;
             default:
-                container.setDeadBehavior(new Level1DeadBehavior());
+                game.setDeadBehavior(new Level1DeadBehavior());
                 break;
         }
-        container.start();
+        game.start();
     }
 
     @Override
     public void pause() {
-        container.pause();
+        game.pause();
         System.out.println("Paused");
     }
 
     @Override
     public void resume() {
-        container.resume();
+        game.resume();
         System.out.println("Resumed");
     }
+
+
 
     @Override
     public void highScore() {
@@ -72,7 +81,7 @@ public class GameController implements Controller {
     @Override
     public void quit() {
 
-        if (JOptionPane.showConfirmDialog(rootView, "Are you sure to quit this container?", "Close container!",
+        if (JOptionPane.showConfirmDialog(rootView, "Are you sure to quit this game?", "Close game!",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
@@ -81,33 +90,33 @@ public class GameController implements Controller {
 
     @Override
     public synchronized void turnSnakeLeft() {
-        container.turnSnakeLeft();
+        game.turnSnakeLeft();
     }
 
     @Override
     public synchronized void turnSnakeRight() {
-        container.turnSnakeRight();
+        game.turnSnakeRight();
     }
 
     @Override
     public synchronized void turnSnakeUp() {
-        container.turnSnakeUp();
+        game.turnSnakeUp();
     }
 
     @Override
     public synchronized void turnSnakeDown() {
-        container.turnSnakeDown();
+        game.turnSnakeDown();
     }
 
     @Override
     public void setLevel(int level) {
-        this.container.setLevel(level);
+        this.game.setLevel(level);
     }
 
 
     @Override
     public void chooseLevel() {
-        View levelView = new LevelView(rootView.getCurrentPanel(), container, this);
+        View levelView = new LevelView(rootView.getCurrentPanel(), game, this);
         rootView.changeView(levelView);
     }
 
@@ -118,7 +127,7 @@ public class GameController implements Controller {
 
     @Override
     public void changeHelpView() {
-        View helpView = new HelpView(rootView.getCurrentPanel(), container, this);
+        View helpView = new HelpView(rootView.getCurrentPanel(), game, this);
         rootView.changeView(helpView);
     }
 

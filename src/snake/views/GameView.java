@@ -2,15 +2,12 @@ package snake.views;
 
 import snake.controllers.Controller;
 import snake.controllers.GameAction;
-import snake.controllers.GameController;
-import snake.models.Container;
 import snake.models.Model;
 import snake.utils.constraints.Constrains;
 import snake.utils.enums.GameState;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class GameView extends JPanel implements View {
     private Model game;
@@ -105,12 +102,11 @@ public class GameView extends JPanel implements View {
     @Override
     public void render() {
         setScore();
-        System.out.println(game.getState());
+
         if (game.getState() == GameState.STOPPED) {
-            System.out.println(game.getState());
             Object[] options = {"Exit"};
             JOptionPane.showOptionDialog(SwingUtilities.getWindowAncestor(this), "You died !!!!", "Game Over", JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
-
+            controller.newGame();
             System.out.println("Game over");
         }
     }

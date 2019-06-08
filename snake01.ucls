@@ -37,7 +37,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="5" language="java" name="snake.models.Container" project="JAVA_Snake" 
+  <class id="5" language="java" name="snake.models.Game" project="JAVA_Snake"
     file="/JAVA_Snake/src/snake/models/Container.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="731" y="346"/>    
     <display autosize="false" stereotype="true" package="false" initial-value="false" signature="false" 

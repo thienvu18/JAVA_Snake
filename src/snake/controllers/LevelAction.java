@@ -67,25 +67,29 @@ public class LevelAction extends MouseAdapter {
         if (!pnViewLevel.getPanel().contains(e.getPoint())) {
             controller.changeView(parent);
         } else {
-            JButton bt = (JButton) e.getSource();
-            if (bt.getText() == "Easy") {
+            Object o = e.getSource();
 
-                pnViewLevel.getEasybt().setForeground(Color.RED);
-                pnViewLevel.getNormalbt().setForeground(Color.BLACK);
-                pnViewLevel.getHardbt().setForeground(Color.BLACK);
-                controller.setLevel(1);
-            } else if (bt.getText() == "Normal") {
+            if (o instanceof JButton) {
+                JButton bt = (JButton) e.getSource();
+                if (bt.getText().equals("Easy")) {
 
-                pnViewLevel.getEasybt().setForeground(Color.BLACK);
-                pnViewLevel.getNormalbt().setForeground(Color.RED);
-                pnViewLevel.getHardbt().setForeground(Color.BLACK);
+                    pnViewLevel.getEasybt().setForeground(Color.RED);
+                    pnViewLevel.getNormalbt().setForeground(Color.BLACK);
+                    pnViewLevel.getHardbt().setForeground(Color.BLACK);
+                    controller.setLevel(1);
+                } else if (bt.getText().equals("Normal")) {
 
-                controller.setLevel(2);
-            } else if (bt.getText() == "Hard") {
-                pnViewLevel.getEasybt().setForeground(Color.BLACK);
-                pnViewLevel.getNormalbt().setForeground(Color.BLACK);
-                pnViewLevel.getHardbt().setForeground(Color.RED);
-                controller.setLevel(3);
+                    pnViewLevel.getEasybt().setForeground(Color.BLACK);
+                    pnViewLevel.getNormalbt().setForeground(Color.RED);
+                    pnViewLevel.getHardbt().setForeground(Color.BLACK);
+
+                    controller.setLevel(2);
+                } else if (bt.getText().equals("Hard")) {
+                    pnViewLevel.getEasybt().setForeground(Color.BLACK);
+                    pnViewLevel.getNormalbt().setForeground(Color.BLACK);
+                    pnViewLevel.getHardbt().setForeground(Color.RED);
+                    controller.setLevel(3);
+                }
             }
         }
     }

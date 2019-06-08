@@ -1,7 +1,7 @@
 package snake;
 
 import snake.controllers.GameController;
-import snake.models.Container;
+import snake.models.Game;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,6 +10,6 @@ public class Main {
 //
 //        gameController.start();
 
-        new GameController(new Container());
+        new GameController(new Game());
     }
 }
