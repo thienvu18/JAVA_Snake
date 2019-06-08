@@ -17,7 +17,7 @@ public class Level3DeadBehavior implements DeadBehavior {
             return true;
         }
 
-        if (model.getSnake().isHitSelf()) {
+        else if (model.getSnake().isHitSelf()) {
             System.out.println("Cắn thân");
             return true;
         }

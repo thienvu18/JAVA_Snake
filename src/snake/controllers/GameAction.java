@@ -34,6 +34,9 @@ public class GameAction extends MouseAdapter implements KeyListener {
             gameView.getBtnResume().setVisible(false);
             controller.resume();
         }
+         else if (cmd.equals(gameView.getBtnMenuGame())) {
+            controller.newGame();
+        }
 
     }
 

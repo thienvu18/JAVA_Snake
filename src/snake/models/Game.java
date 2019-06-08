@@ -140,6 +140,9 @@ public class Game implements Model, Runnable {
 
     @Override
     public void newGame() {
+        if (state == GameState.PAUSING || state == GameState.PLAYING  ) {
+            stop();
+        }
         if (state == GameState.STOPPED || state == GameState.INITIALIZED) {
             state = GameState.INITIALIZING;
             init();
