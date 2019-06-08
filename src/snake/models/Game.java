@@ -130,7 +130,7 @@ public class Game implements Model, Runnable {
 
     }
 
-    private void gamePlay() {
+    private synchronized void gamePlay() {
         if (snake.isHitApple(apple)) {
             score++;
             snake.eat();

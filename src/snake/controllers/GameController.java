@@ -1,10 +1,7 @@
 package snake.controllers;
 
 
-import snake.models.Game;
-import snake.models.Level1DeadBehavior;
-import snake.models.Level2DeadBehavior;
-import snake.models.Level3DeadBehavior;
+import snake.models.*;
 import snake.utils.constraints.Constrains;
 import snake.views.*;
 
@@ -46,16 +43,20 @@ public class GameController implements Controller {
         switch (game.getLevel()) {
             case 1:
                 game.setDeadBehavior(new Level1DeadBehavior());
+                game.getSnake().setMoveBehavior(new Level1MoveBehavior());
                 break;
             case 2:
                 game.setDeadBehavior(new Level2DeadBehavior());
+                game.getSnake().setMoveBehavior(new Level23MoveBehavior());
                 break;
             case 3:
                 game.setDeadBehavior(new Level3DeadBehavior());
+                game.getSnake().setMoveBehavior(new Level23MoveBehavior());
 
                 break;
             default:
                 game.setDeadBehavior(new Level1DeadBehavior());
+                game.getSnake().setMoveBehavior(new Level1MoveBehavior());
                 break;
         }
         game.start();

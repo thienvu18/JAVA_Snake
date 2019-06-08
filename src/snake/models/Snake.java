@@ -10,16 +10,22 @@ public class Snake implements Drawable, Runnable {
     private LinkedList<Point> body;
     private Direction direction;
     private volatile boolean running = true;
+    private MoveBehavior moveBehavior;
 
     public Snake() {
         this.body = new LinkedList<>();
         this.direction = Direction.EAST;
+        moveBehavior = new Level1MoveBehavior();
 
         body.add(new Point(7, 10));
         body.add(new Point(8, 10));
         body.add(new Point(9, 10));
         body.add(new Point(10, 10));
 
+    }
+
+    public void setMoveBehavior(MoveBehavior moveBehavior) {
+        this.moveBehavior = moveBehavior;
     }
 
     public LinkedList<Point> getBody() {
@@ -48,44 +54,6 @@ public class Snake implements Drawable, Runnable {
 
     private void addTail(Point p) {
         this.body.addFirst(p);
-    }
-
-    private Point next(Point anchor) {
-        Point p = new Point();
-
-        switch (direction) {
-            case NORTH:
-                p.y = anchor.y - 1;
-                p.x = anchor.x;
-                break;
-            case SOUTH:
-                p.y = anchor.y + 1;
-                p.x = anchor.x;
-                break;
-            case WEST:
-                p.y = anchor.y;
-                p.x = anchor.x - 1;
-                break;
-            case EAST:
-                p.y = anchor.y;
-                p.x = anchor.x + 1;
-                break;
-
-        }
-        if (p.x == Constrains.BOARD_COL) {
-            p.x = 0;
-        }
-        if (p.x == 0 - 1) {
-            p.x = Constrains.BOARD_COL;
-        }
-        if (p.y == Constrains.BOARD_ROW) {
-            p.y = 0;
-        }
-        if (p.y == 0 - 1) {
-            p.y = Constrains.BOARD_ROW;
-        }
-
-        return p;
     }
 
     synchronized void turn(Direction newDirection) {
@@ -117,7 +85,7 @@ public class Snake implements Drawable, Runnable {
 
     private synchronized void move() {
         this.removeTail();
-        this.addHead(this.next(this.getHead()));
+        this.addHead(this.moveBehavior.next(this.getHead(), direction));
     }
 
     public synchronized void stepBack() {
@@ -137,7 +105,7 @@ public class Snake implements Drawable, Runnable {
                 break;
         }
         this.removeHead();
-        this.addTail(this.next(this.getTail()));
+        this.addTail(this.moveBehavior.next(this.getTail(), direction));
     }
 
     public synchronized void start() {
@@ -176,7 +144,7 @@ public class Snake implements Drawable, Runnable {
     }
 
     public synchronized void eat()  {
-        this.addTail(this.next(this.getHead()));
+        this.addTail(this.moveBehavior.next(this.getHead(), direction));
     }
 
     @Override
