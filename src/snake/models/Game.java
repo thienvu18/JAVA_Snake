@@ -34,12 +34,6 @@ public class Game implements Model, Runnable {
 
     public void setLevel(int level) {
         this.level = level;
-        if (level == 3) {
-            for (int i = 0; i < 5; i++) {
-                booms.add(new Boom());
-            }
-
-        }
     }
 
     @Override
@@ -155,6 +149,12 @@ public class Game implements Model, Runnable {
     @Override
     public synchronized void start() {
         if (state == GameState.INITIALIZED || state == GameState.PAUSING) {
+            if (level == 3) {
+                for (int i = 0; i < 5; i++) {
+                    booms.add(new Boom());
+                }
+
+            }
             snake.start();
             state = GameState.PLAYING;
         }
