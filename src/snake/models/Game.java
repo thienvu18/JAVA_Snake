@@ -97,20 +97,14 @@ public class Game implements Model, Runnable {
     private void gamePlay() {
         if (snake.isHitApple(apple)) {
             score++;
-            snake.addTail(snake.next());
+            snake.eat();
             apple = new Apple();
-            this.notifyModelChange();
-
-            System.out.println("Ăn");
-            System.out.println("Diem: " + score);
         }
         if (deadBehavior.isDead(this)) {
-            snake.stop();
+            snake.stepBack();
             stop();
-            System.out.println(state);
         }
         this.notifyModelChange();
-
     }
 
     public synchronized void turnSnakeLeft() {

@@ -15,7 +15,7 @@ public class GameView extends JPanel implements View {
     private BoardView boardView;
     private JPanel pnNorth, pnMain;
     private JLabel labelScore;
-    private JButton btnPause, btnResum;
+    private JButton btnPause, btnResume;
 
     public GameView(Model game, Controller controller) {
         this.game = game;
@@ -27,8 +27,8 @@ public class GameView extends JPanel implements View {
         addAction();
     }
 
-    public JButton getBtnResum() {
-        return btnResum;
+    public JButton getBtnResume() {
+        return btnResume;
     }
 
     public JButton getBtnPause() {
@@ -54,7 +54,7 @@ public class GameView extends JPanel implements View {
 //        pnNorth.add(panelCenterNorth);
         ImageIcon pause = new ImageIcon(
                 new ImageIcon(Constrains.PAUSE).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
-        ImageIcon resum = new ImageIcon(
+        ImageIcon resume = new ImageIcon(
                 new ImageIcon(Constrains.RESUME).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
 
         btnPause = new JButton(pause);
@@ -64,19 +64,17 @@ public class GameView extends JPanel implements View {
         btnPause.setContentAreaFilled(false);
 
 
-        btnResum = new JButton(resum);
-        btnResum.setBorder(null);
-        btnResum.setVisible(false);
-        btnResum.setFocusPainted(false);
-        btnResum.setContentAreaFilled(false);
+        btnResume = new JButton(resume);
+        btnResume.setBorder(null);
+        btnResume.setVisible(false);
+        btnResume.setFocusPainted(false);
+        btnResume.setContentAreaFilled(false);
 
 
         pnNorth.add(labelApple);
         pnNorth.add(labelScore);
-//        pnNorth.add(btnPause);
-//        pnNorth.add(btnResum);
         pnNorth.add(new ButtonBorder(btnPause));
-        pnNorth.add(new ButtonBorder(btnResum));
+        pnNorth.add(new ButtonBorder(btnResume));
 
 
         pnMain.add(boardView);
@@ -89,7 +87,7 @@ public class GameView extends JPanel implements View {
     public void addAction() {
         GameAction g = new GameAction(controller, this);
         btnPause.addMouseListener(g);
-        btnResum.addMouseListener(g);
+        btnResume.addMouseListener(g);
         this.addKeyListener(g);
         this.setFocusable(true);
     }

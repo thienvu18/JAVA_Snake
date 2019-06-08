@@ -22,41 +22,49 @@ public class Snake implements Drawable, Runnable {
 
     }
 
-    public Point getHead() {
+    private Point getHead() {
         return this.body.getLast();
+    }
+
+    private Point getTail() {
+        return this.body.getFirst();
     }
 
     private void removeTail() {
         this.body.removeFirst();
     }
 
+    private void removeHead() {
+        this.body.removeLast();
+    }
+
     private void addHead(Point p) {
         this.body.addLast(p);
     }
 
-    public void addTail(Point p) {
+    private void addTail(Point p) {
         this.body.addFirst(p);
     }
 
-    public Point next() {
+    private Point next(Point anchor) {
         Point p = new Point();
 
         switch (direction) {
             case NORTH:
-                p.y = this.getHead().y - 1;
-                p.x = this.getHead().x;
+                p.y = anchor.y - 1;
+                p.x = anchor.x;
                 break;
             case SOUTH:
-                p.y = this.getHead().y + 1;
-                p.x = this.getHead().x;
+                p.y = anchor.y + 1;
+                p.x = anchor.x;
                 break;
             case WEST:
-                p.y = this.getHead().y;
-                p.x = this.getHead().x - 1;
+                p.y = anchor.y;
+                p.x = anchor.x - 1;
                 break;
             case EAST:
-                p.y = this.getHead().y;
-                p.x = this.getHead().x + 1;
+                p.y = anchor.y;
+                p.x = anchor.x + 1;
                 break;
 
         }
@@ -78,7 +86,7 @@ public class Snake implements Drawable, Runnable {
         return p;
     }
 
-    public synchronized void turn(Direction newDirection) {
+    synchronized void turn(Direction newDirection) {
         if (newDirection == direction) return;
 
         switch (newDirection) {
@@ -107,7 +115,27 @@ public class Snake implements Drawable, Runnable {
 
     private synchronized void move() {
         this.removeTail();
-        this.addHead(this.next());
+        this.addHead(this.next(this.getHead()));
+    }
+
+    public synchronized void stepBack() {
+        switch (direction) {
+
+            case NORTH:
+                direction = Direction.SOUTH;
+                break;
+            case SOUTH:
+                direction = Direction.NORTH;
+                break;
+            case EAST:
+                direction = Direction.WEST;
+                break;
+            case WEST:
+                direction = Direction.EAST;
+                break;
+        }
+        this.removeHead();
+        this.addTail(this.next(this.getTail()));
     }
 
     public synchronized void start() {
@@ -123,8 +151,6 @@ public class Snake implements Drawable, Runnable {
 
     public synchronized boolean isHitWall(int boardWidth, int boardHeight) {
         Point head = this.getHead();
-//        System.out.println(head.x);
-//        System.out.println(head.y);
         return head.x == 0 || head.x == boardWidth || head.y == 0 || head.y == boardHeight;
     }
 
@@ -148,10 +174,13 @@ public class Snake implements Drawable, Runnable {
         return head.equals(boom.getPoint());
     }
 
+    public synchronized void eat()  {
+        this.addTail(this.next(this.getHead()));
+    }
+
     @Override
     public void draw(Graphics2D g) {
         g.setStroke(new BasicStroke(Constrains.POINT_SIZE, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        g.setColor(new Color(68, 114, 230));
 //// vẽ snake
 //        for (int i = 0; i < body.size() - 1; i++) {
 //
@@ -162,10 +191,14 @@ public class Snake implements Drawable, Runnable {
 //        g.drawLine(body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel(),
 //                body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel());
 
-        for (int i = 0; i < body.size(); i++) {
+        g.setColor(new Color(68, 114, 230));
+        for (int i = 0; i < body.size() - 1; i++) {
             g.drawRect(body.get(i).getCenterXInPixel(), body.get(i).getCenterYInPixel(),
                     5, 5);
         }
+        g.setColor(Color.RED);
+        g.drawRect(body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel(),
+                5, 5);
 //        g.drawRect(body.getLast().getCenterXInPixel(), body.getLast().getCenterYInPixel(),
 //                10, 10);
 //        }

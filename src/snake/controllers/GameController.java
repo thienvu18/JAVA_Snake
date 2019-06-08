@@ -12,14 +12,24 @@ import javax.swing.*;
 
 public class GameController implements Controller {
 
+    private static GameController instance;
+
     private Game game;
     private Window rootView;
 
-    public GameController(Game game) {
+    private GameController(Game game) {
         this.game = game;
         rootView = Window.getInstance("Snake Game", Constrains.WIDTH, Constrains.HEIGHT);
         View menuView = new MenuView(game, this);
         rootView.changeView(menuView);
+    }
+
+    public static GameController getInstance(Game game) {
+        if (instance == null) {
+            instance = new GameController(game);
+        }
+
+        return instance;
     }
 
     @Override
