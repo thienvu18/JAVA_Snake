@@ -22,6 +22,10 @@ public class Snake implements Drawable, Runnable {
 
     }
 
+    public LinkedList<Point> getBody() {
+        return body;
+    }
+
     private Point getHead() {
         return this.body.getLast();
     }

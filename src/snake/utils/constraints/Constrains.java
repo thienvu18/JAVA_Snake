@@ -14,6 +14,7 @@ public class Constrains {
     public static final String VIEW_HELP = "resources/images/help.png";
     public static final String PAUSE = "resources/images/pause.png";
     public static final String RESUME = "resources/images/resume.png";
+    public static final String MENUGAME = "resources/images/MenuGame.png";
 
     public static final String VIEW_GAME = "resources/images/viewgame.jpg";
     public static final String VIEW_LEVEL = "resources/images/level.jpg";

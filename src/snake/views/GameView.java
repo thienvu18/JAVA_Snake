@@ -15,7 +15,7 @@ public class GameView extends JPanel implements View {
     private BoardView boardView;
     private JPanel pnNorth, pnMain;
     private JLabel labelScore;
-    private JButton btnPause, btnResume;
+    private JButton btnPause, btnResume, btnMenuGame;
 
     public GameView(Model game, Controller controller) {
         this.game = game;
@@ -25,6 +25,10 @@ public class GameView extends JPanel implements View {
         game.addView(this);
         frameView();
         addAction();
+    }
+
+    public JButton getBtnMenuGame() {
+        return btnMenuGame;
     }
 
     public JButton getBtnResume() {
@@ -54,9 +58,11 @@ public class GameView extends JPanel implements View {
 //        pnNorth.add(panelCenterNorth);
         ImageIcon pause = new ImageIcon(
                 new ImageIcon(Constrains.PAUSE).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
+
         ImageIcon resume = new ImageIcon(
                 new ImageIcon(Constrains.RESUME).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
-
+        ImageIcon menuGame = new ImageIcon(
+                new ImageIcon(Constrains.MENUGAME).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
         btnPause = new JButton(pause);
         btnPause.setBorder(null);
         btnPause.setVisible(true);
@@ -70,11 +76,17 @@ public class GameView extends JPanel implements View {
         btnResume.setFocusPainted(false);
         btnResume.setContentAreaFilled(false);
 
+        btnMenuGame = new JButton(menuGame);
+        btnMenuGame.setBorder(null);
+        btnMenuGame.setFocusPainted(false);
+        btnMenuGame.setContentAreaFilled(false);
 
         pnNorth.add(labelApple);
         pnNorth.add(labelScore);
         pnNorth.add(new ButtonBorder(btnPause));
         pnNorth.add(new ButtonBorder(btnResume));
+        pnNorth.add(new ButtonBorder(btnMenuGame));
+
 
 
         pnMain.add(boardView);
@@ -88,6 +100,7 @@ public class GameView extends JPanel implements View {
         GameAction g = new GameAction(controller, this);
         btnPause.addMouseListener(g);
         btnResume.addMouseListener(g);
+        btnMenuGame.addMouseListener(g);
         this.addKeyListener(g);
         this.setFocusable(true);
     }
