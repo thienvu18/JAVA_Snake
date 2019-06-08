@@ -1,11 +1,16 @@
 package snake.views;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
+import javax.swing.JPanel;
+
 import snake.controllers.Controller;
 import snake.models.Model;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
 public class BoardView extends JPanel implements View, FocusListener {
     private Model game;
@@ -14,11 +19,17 @@ public class BoardView extends JPanel implements View, FocusListener {
     public BoardView(Model game, Controller controller) {
         this.game = game;
         this.controller = controller;
-        game.addView(this);
+		game.addView(this);
         this.setPreferredSize(new Dimension(500, 500));
         this.setMaximumSize(new Dimension(500, 500));
         this.setMinimumSize(new Dimension(500, 500));
     }
+
+	@Override
+	public void render() {
+
+		this.repaint();
+	}
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -39,11 +50,7 @@ public class BoardView extends JPanel implements View, FocusListener {
         g2d.dispose();
     }
 
-    @Override
-    public void render() {
 
-        this.repaint();
-    }
 
 
     @Override

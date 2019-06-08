@@ -1,12 +1,12 @@
 package snake.models;
 
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+
 import snake.utils.constraints.Constrains;
 import snake.utils.enums.Direction;
 import snake.utils.enums.GameState;
 import snake.views.View;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 public class Container implements Model, Runnable {
     private ArrayList<View> views;
@@ -19,7 +19,8 @@ public class Container implements Model, Runnable {
     private int score = 0;
     private int level;
 
-    public int getLevel() {
+    @Override
+	public int getLevel() {
         return level;
     }
 
@@ -52,7 +53,8 @@ public class Container implements Model, Runnable {
         this.deadBehavior = deadBehavior;
     }
 
-    public int getScore() {
+    @Override
+	public int getScore() {
         return score;
     }
 
@@ -174,7 +176,7 @@ public class Container implements Model, Runnable {
                 System.out.println("Game over");
                 break;
             }
-            this.notifyModelChange();
+			this.notifyModelChange();
 
             timeDiff = System.currentTimeMillis() - beforeTime;
             sleep = 1000 / Constrains.FPS - timeDiff;

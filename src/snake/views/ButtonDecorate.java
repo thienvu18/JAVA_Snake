@@ -7,7 +7,7 @@ public  abstract class ButtonDecorate extends JComponent {
     JComponent jComponent;
     public ButtonDecorate(JComponent jComponent) {
         this.jComponent=jComponent;
-       setLayout(new BorderLayout() );
+        setLayout(new BorderLayout() );
         add(jComponent);
 
     }

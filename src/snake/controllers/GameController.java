@@ -1,24 +1,32 @@
 package snake.controllers;
 
 
-import snake.models.*;
-import snake.utils.constraints.Constrains;
-import snake.views.*;
+import javax.swing.JOptionPane;
 
-import javax.swing.*;
+import snake.models.Container;
+import snake.models.HighScore;
+import snake.models.Level1DeadBehavior;
+import snake.models.Level2DeadBehavior;
+import snake.models.Level3DeadBehavior;
+import snake.utils.constraints.Constrains;
+import snake.views.GameView;
+import snake.views.HelpView;
+import snake.views.LevelView;
+import snake.views.MenuView;
+import snake.views.View;
+import snake.views.Window;
 
 public class GameController implements Controller {
 
     private Container container;
     private Window rootView;
-
-
+    HighScore highScore;
     public GameController(Container container) {
         this.container = container;
         rootView = Window.getInstance("Snake Game", Constrains.WIDTH, Constrains.HEIGHT);
         View menuView = new MenuView(container, this);
         rootView.changeView(menuView);
-
+         highScore= new HighScore(container);
     }
 
     @Override
@@ -57,7 +65,8 @@ public class GameController implements Controller {
 
     @Override
     public void highScore() {
-        if (JOptionPane.showConfirmDialog(rootView, "High Score: 1000", "High Score",
+
+		if (JOptionPane.showConfirmDialog(rootView, "High Score:" + HighScore.highScore.get(0), "High Score",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION) == JOptionPane.DEFAULT_OPTION) {
         }
     }
@@ -74,22 +83,22 @@ public class GameController implements Controller {
 
     @Override
     public synchronized void turnSnakeLeft() {
-        ((Container) container).turnSnakeLeft();
+        container.turnSnakeLeft();
     }
 
     @Override
     public synchronized void turnSnakeRight() {
-        ((Container) container).turnSnakeRight();
+        container.turnSnakeRight();
     }
 
     @Override
     public synchronized void turnSnakeUp() {
-        ((Container) container).turnSnakeUp();
+        container.turnSnakeUp();
     }
 
     @Override
     public synchronized void turnSnakeDown() {
-        ((Container) container).turnSnakeDown();
+        container.turnSnakeDown();
     }
 
     @Override

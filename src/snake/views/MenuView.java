@@ -1,20 +1,22 @@
 package snake.views;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
 import snake.controllers.Controller;
 import snake.controllers.MenuAction;
 import snake.models.Model;
 import snake.utils.constraints.Constrains;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class MenuView extends JPanel implements View {
     private Model game;
@@ -25,10 +27,9 @@ public class MenuView extends JPanel implements View {
         this.game = game;
         this.controller = controller;
         this.setLayout(new BorderLayout());
-        game.addView(this);
+//        game.addView(this);
 
         this.setFocusable(true);
-//        this.addKeyListener(this);
         init();
     }
 
@@ -37,7 +38,8 @@ public class MenuView extends JPanel implements View {
         mouseEventButton();
     }
 
-    public void paintComponent(Graphics g) {
+    @Override
+	public void paintComponent(Graphics g) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File(Constrains.VIEW_GAME));
