@@ -151,7 +151,7 @@ public class Snake implements Drawable, Runnable {
 
     public synchronized boolean isHitWall(int boardWidth, int boardHeight) {
         Point head = this.getHead();
-        return head.x == 0 || head.x == boardWidth || head.y == 0 || head.y == boardHeight;
+        return head.x == -1 || head.x == boardWidth || head.y == -1 || head.y == boardHeight;
     }
 
     public synchronized boolean isHitSelf() {
