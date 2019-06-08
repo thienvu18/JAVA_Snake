@@ -20,13 +20,11 @@ public class GameController implements Controller {
 
     private Container container;
     private Window rootView;
-    HighScore highScore;
     public GameController(Container container) {
         this.container = container;
         rootView = Window.getInstance("Snake Game", Constrains.WIDTH, Constrains.HEIGHT);
         View menuView = new MenuView(container, this);
         rootView.changeView(menuView);
-         highScore= new HighScore(container);
     }
 
     @Override

@@ -27,7 +27,6 @@ public class BoardView extends JPanel implements View, FocusListener {
 
 	@Override
 	public void render() {
-
 		this.repaint();
 	}
 

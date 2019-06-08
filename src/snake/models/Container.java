@@ -5,7 +5,6 @@ import snake.utils.constraints.Constrains;
 import snake.utils.enums.Direction;
 import snake.utils.enums.GameState;
 import snake.views.View;
-import snake.views.Window;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,10 +21,14 @@ public class Container implements Model, Runnable {
 	private DeadBehavior deadBehavior;
 	private int score = 0;
 	private int level;
-	private Window win;
 
 	public int getLevel() {
 		return level;
+	}
+
+	@Override
+	public GameState getState() {
+		return state;
 	}
 
 	@Override
@@ -173,11 +176,8 @@ public class Container implements Model, Runnable {
 			}
 			if (deadBehavior.isDead(this)) {
 				snake.stop();
-				Object[] options = {"Exit"};
-				JOptionPane.showOptionDialog(win, "You died !!!!", "Game Over", JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
-					new GameController(new Container());
-				System.out.println("Game over");
-				break;
+				state = GameState.STOPPED;
+				System.out.println(state);
 			}
 			this.notifyModelChange();
 
