@@ -18,7 +18,6 @@ public class ButtonBorder extends ButtonDecorate {
             public void mouseEntered(MouseEvent mouseEvent) {
                 mouse_over = true;
                 thiscomp.repaint();
-                System.out.println("Enter");
             }
 
             public void mouseExited(MouseEvent e) {

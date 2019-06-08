@@ -100,11 +100,6 @@ public class LevelView extends JPanel implements View {
         panel.add(easybt);
         panel.add(normalbt);
         panel.add(hardbt);
-//        panel.setLocation(20, 0);
-//        System.out.println(this.getAlignmentX() +  " bb "+ this.getAlignmentY());
-//        this.setAlignmentX(CENTER_ALIGNMENT);
-//        System.out.println(this.getAlignmentX() +  " bb "+ this.getAlignmentY());
-
         add(panel);
 
     }

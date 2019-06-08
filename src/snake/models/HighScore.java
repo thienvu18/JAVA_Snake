@@ -61,7 +61,6 @@ public class HighScore {
             BufferedReader bfReader = new BufferedReader(reader);
             for (int i = 0; i < MAXELEMENT; i++) {
                 highScore.add(i, bfReader.readLine());
-                System.out.println(highScore.get(i));
             }
 
             bfReader.close();
@@ -79,8 +78,7 @@ public class HighScore {
                 fileWriter.write(highScore.get(i) + "\n");
             }
             fileWriter.close();
-        } catch (IOException e) {
-            System.out.println(e.toString());
+        } catch (IOException ignored) {
         }
     }
 

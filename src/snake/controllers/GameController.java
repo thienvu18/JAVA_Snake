@@ -64,13 +64,11 @@ public class GameController implements Controller {
     @Override
     public void pause() {
         game.pause();
-        System.out.println("Paused");
     }
 
     @Override
     public void resume() {
         game.resume();
-        System.out.println("Resumed");
     }
 
 

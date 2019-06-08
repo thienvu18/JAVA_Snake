@@ -118,7 +118,6 @@ public class GameView extends JPanel implements View {
             Object[] options = {"Exit"};
             JOptionPane.showOptionDialog(SwingUtilities.getWindowAncestor(this), "You died !!!!", "Game Over", JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
             controller.newGame();
-            System.out.println("Game over");
         }
     }
 

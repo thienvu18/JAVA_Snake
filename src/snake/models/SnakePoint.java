@@ -132,7 +132,6 @@ public class SnakePoint {
 
     @Override
     public int hashCode() {
-//        System.out.println(point.hashCode());
         return point.hashCode();
     }
 }

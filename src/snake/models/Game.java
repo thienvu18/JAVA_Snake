@@ -221,7 +221,6 @@ public class Game implements Model, Runnable {
         if (state == GameState.PLAYING || state == GameState.INITIALIZED) {
             state = GameState.PAUSING;
             snake.stop();
-            System.out.println(state);
         }
     }
 

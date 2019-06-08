@@ -72,9 +72,7 @@ public class Snake implements Drawable, Runnable {
                 break;
 
         }
-        System.out.println("index x: " + p.x);
         if (p.x == Constrains.BOARD_COL) {
-            System.out.println("đụng");
             p.x = 0;
         }
         if (p.x == 0 - 1) {
@@ -150,7 +148,6 @@ public class Snake implements Drawable, Runnable {
 
     public synchronized void stop() {
         running = false;
-        System.out.println(running);
     }
 
     public synchronized boolean isHitWall(int boardWidth, int boardHeight) {
