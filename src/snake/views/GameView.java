@@ -55,7 +55,7 @@ public class GameView extends JPanel implements View {
         ImageIcon pause = new ImageIcon(
                 new ImageIcon(Constrains.PAUSE).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
         ImageIcon resum = new ImageIcon(
-                new ImageIcon(Constrains.RESUM).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
+                new ImageIcon(Constrains.RESUME).getImage().getScaledInstance(50, 25, Image.SCALE_DEFAULT));
 
         btnPause = new JButton(pause);
         btnPause.setBorder(null);

@@ -1,25 +1,20 @@
 package snake.controllers;
 
 
-import javax.swing.JOptionPane;
-
 import snake.models.Game;
-import snake.models.HighScore;
 import snake.models.Level1DeadBehavior;
 import snake.models.Level2DeadBehavior;
 import snake.models.Level3DeadBehavior;
 import snake.utils.constraints.Constrains;
-import snake.views.GameView;
-import snake.views.HelpView;
-import snake.views.LevelView;
-import snake.views.MenuView;
-import snake.views.View;
-import snake.views.Window;
+import snake.views.*;
+
+import javax.swing.*;
 
 public class GameController implements Controller {
 
     private Game game;
     private Window rootView;
+
     public GameController(Game game) {
         this.game = game;
         rootView = Window.getInstance("Snake Game", Constrains.WIDTH, Constrains.HEIGHT);
@@ -69,11 +64,10 @@ public class GameController implements Controller {
     }
 
 
-
     @Override
     public void highScore() {
 
-		if (JOptionPane.showConfirmDialog(rootView, "High Score:\n" + game.getHighScore(), "High Score",
+        if (JOptionPane.showConfirmDialog(rootView, "High Score:\n" + game.getHighScore(), "High Score",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION) == JOptionPane.DEFAULT_OPTION) {
         }
     }

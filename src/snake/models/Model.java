@@ -1,9 +1,5 @@
 package snake.models;
 
-import snake.models.Boom;
-import snake.models.Drawable;
-import snake.models.GameBoard;
-import snake.models.Snake;
 import snake.utils.enums.GameState;
 import snake.views.View;
 

@@ -1,7 +1,5 @@
 package snake.models;
 
-import snake.models.Drawable;
-import snake.models.Point;
 import snake.utils.constraints.Constrains;
 
 import javax.imageio.ImageIO;

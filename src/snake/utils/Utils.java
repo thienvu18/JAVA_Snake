@@ -14,8 +14,8 @@ public class Utils {
         // paints into image's Graphics
         component.paint(image.getGraphics());
 //làm mờ
-        Kernel kernel = new Kernel(3, 3, new float[] { 1f / 9f, 1f / 9f, 1f / 9f,
-                1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f });
+        Kernel kernel = new Kernel(3, 3, new float[]{1f / 9f, 1f / 9f, 1f / 9f,
+                1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f});
         BufferedImageOp op = new ConvolveOp(kernel);
         image = op.filter(image, null);
 

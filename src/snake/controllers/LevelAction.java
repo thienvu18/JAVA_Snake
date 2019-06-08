@@ -15,7 +15,7 @@ public class LevelAction extends MouseAdapter {
 
     public LevelAction(Controller controller, View parent, LevelView pnViewLevel) {
         this.controller = controller;
-        this.parent =  parent;
+        this.parent = parent;
         this.pnViewLevel = pnViewLevel;
     }
 
@@ -25,7 +25,7 @@ public class LevelAction extends MouseAdapter {
 
         Object o = e.getSource();
 
-        if(o instanceof JButton) {
+        if (o instanceof JButton) {
             JButton bt = (JButton) o;
 
             if (bt.getText() == "Easy") {
@@ -47,7 +47,7 @@ public class LevelAction extends MouseAdapter {
 
         Object o = e.getSource();
 
-        if(o instanceof JButton) {
+        if (o instanceof JButton) {
             JButton bt = (JButton) o;
 
             if (bt.getText() == "Easy") {

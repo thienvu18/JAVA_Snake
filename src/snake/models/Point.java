@@ -2,7 +2,6 @@ package snake.models;
 
 import snake.utils.constraints.Constrains;
 
-import java.awt.*;
 import java.util.Random;
 
 public class Point {
@@ -15,6 +14,14 @@ public class Point {
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public static Point getRandomPoint(int xMax, int yMax) {
+        Random rd = new Random();
+        int x = rd.nextInt(xMax);
+        int y = rd.nextInt(yMax);
+
+        return new Point(x, y);
     }
 
     public int getXInPixel() {
@@ -32,15 +39,6 @@ public class Point {
     public int getCenterYInPixel() {
         return this.y * Constrains.POINT_SIZE + Constrains.POINT_SIZE / 2;
     }
-
-    public static Point getRandomPoint(int xMax, int yMax) {
-        Random rd = new Random();
-        int x = rd.nextInt(xMax);
-        int y = rd.nextInt(yMax);
-
-        return new Point(x, y);
-    }
-
 
     @Override
     public boolean equals(Object obj) {

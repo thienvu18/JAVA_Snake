@@ -28,7 +28,7 @@ public class GameBoard implements Drawable {
                 int x = i * Constrains.POINT_SIZE;
                 int y = j * Constrains.POINT_SIZE;
                 if ((i + j) % 2 == 0) {
-                   g.setColor(Constrains.CELL_COLOR_1);
+                    g.setColor(Constrains.CELL_COLOR_1);
                 } else {
                     g.setColor(Constrains.CELL_COLOR_2);
                 }

@@ -125,9 +125,7 @@ public class Snake implements Drawable, Runnable {
         Point head = this.getHead();
 //        System.out.println(head.x);
 //        System.out.println(head.y);
-        if (head.x == 0 || head.x == boardWidth || head.y == 0 || head.y == boardHeight)
-            return true;
-        return false;
+        return head.x == 0 || head.x == boardWidth || head.y == 0 || head.y == boardHeight;
     }
 
     public synchronized boolean isHitSelf() {

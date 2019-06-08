@@ -9,10 +9,8 @@ import java.util.ArrayList;
 import static snake.utils.constraints.Constrains.HIGH_SCORE_PATH;
 
 public class HighScore {
-    private final int MAXELEMENT = 3;
-
     private static HighScore instance = null;
-
+    private final int MAXELEMENT = 3;
     private ArrayList<String> highScore = new ArrayList<>();
     private File file;
 
@@ -102,6 +100,6 @@ public class HighScore {
                 break;
             }
         }
-            writeFile();
+        writeFile();
     }
 }

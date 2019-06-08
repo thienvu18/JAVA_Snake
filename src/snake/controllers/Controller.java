@@ -2,8 +2,6 @@ package snake.controllers;
 
 import snake.views.View;
 
-import java.awt.image.BufferedImage;
-
 public interface Controller {
     void newGame();
 
