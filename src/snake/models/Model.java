@@ -28,6 +28,8 @@ public interface Model extends Drawable {
 
     int getScore();
 
+    String getHighScore();
+
     int getLevel();
 
     GameState getState();

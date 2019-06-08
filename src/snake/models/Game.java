@@ -18,6 +18,7 @@ public class Game implements Model, Runnable {
 	private DeadBehavior deadBehavior;
 	private int score;
 	private int level;
+	private HighScore highScore = HighScore.getInstance();
 
 	public int getLevel() {
 		return level;
@@ -61,6 +62,19 @@ public class Game implements Model, Runnable {
 		return score;
 	}
 
+	@Override
+	public String getHighScore() {
+		StringBuilder res = new StringBuilder();
+
+		for (String highScore: highScore.get()
+			 ) {
+			res.append(highScore);
+			res.append("\n");
+		}
+
+		return res.toString();
+	}
+
 	public Game() {
 		state = GameState.INITIALIZING;
 		init();
@@ -92,7 +106,7 @@ public class Game implements Model, Runnable {
 		}
 		if (deadBehavior.isDead(this)) {
 			snake.stop();
-			state = GameState.STOPPED;
+			stop();
 			System.out.println(state);
 		}
 		this.notifyModelChange();
@@ -157,6 +171,7 @@ public class Game implements Model, Runnable {
 		if (state == GameState.PLAYING || state == GameState.PAUSING) {
 			state = GameState.STOPPED;
 			snake.stop();
+			highScore.save(this.score);
 		}
 	}
 

@@ -73,7 +73,7 @@ public class GameController implements Controller {
     @Override
     public void highScore() {
 
-		if (JOptionPane.showConfirmDialog(rootView, "High Score:" + HighScore.highScore.get(0), "High Score",
+		if (JOptionPane.showConfirmDialog(rootView, "High Score:\n" + game.getHighScore(), "High Score",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION) == JOptionPane.DEFAULT_OPTION) {
         }
     }

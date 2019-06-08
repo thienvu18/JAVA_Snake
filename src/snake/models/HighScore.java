@@ -1,66 +1,80 @@
 package snake.models;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import static snake.utils.constraints.Constrains.HIGH_SCORE_PATH;
+
 public class HighScore {
-    public static String[] hightScore = new String[3];
-    public static ArrayList<String> highScore = new ArrayList<>();
-    public static int MAXELEMENT = 3;
-    File file;
-    Game game;
-    public HighScore(Game game) {
-        this.game = game;
-        checkFile();
+    private final int MAXELEMENT = 3;
+
+    private static HighScore instance = null;
+
+    private ArrayList<String> highScore = new ArrayList<>();
+    private File file;
+
+    private HighScore() {
         readFile();
     }
 
-    public boolean checkFile() {
-
-		String link = "src/highScore/HighScore.txt";
-        file = new File(link);
-        if (file.exists()) {
-            return true;
-        } else {
-            try {
-                file.createNewFile();
-                try {
-                    FileWriter fileWriter = new FileWriter(file);
-                    for (int i = 0; i < MAXELEMENT; i++) {
-                        fileWriter.write("0" + "\n");
-                    }
-                    fileWriter.close();
-                } catch (IOException e) {
-                    System.out.println(e.toString());
-                }
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
+    public static HighScore getInstance() {
+        if (instance == null) {
+            instance = new HighScore();
         }
+
+        return instance;
     }
 
-    public void readFile() {
+    private void checkFile() {
+
+        String link = HIGH_SCORE_PATH;
+
+        Path path = Paths.get(link);
+
+        try {
+            Files.createDirectories(path.getParent());
+            Files.createFile(path);
+
+            file = new File(link);
+
+            try {
+                FileWriter fileWriter = new FileWriter(file);
+                for (int i = 0; i < MAXELEMENT; i++) {
+                    fileWriter.write("0" + "\n");
+                }
+                fileWriter.close();
+            } catch (IOException e) {
+                System.out.println(e.toString());
+            }
+        } catch (IOException e) {
+            file = new File(link);
+        }
+
+    }
+
+
+    private void readFile() {
+        checkFile();
         try {
             FileReader reader = new FileReader(file);
             BufferedReader bfReader = new BufferedReader(reader);
             for (int i = 0; i < MAXELEMENT; i++) {
-                // hightScore[i] = bfReader.readLine();
                 highScore.add(i, bfReader.readLine());
                 System.out.println(highScore.get(i));
-
             }
-        } catch (IOException e) {
-            System.out.println(e.toString());
+
+            bfReader.close();
+            reader.close();
+        } catch (IOException ignored) {
+
         }
     }
 
-    public void writeFile() {
+    private void writeFile() {
+        checkFile();
         try {
             FileWriter fileWriter = new FileWriter(file);
             for (int i = 0; i < MAXELEMENT; i++) {
@@ -72,13 +86,19 @@ public class HighScore {
         }
     }
 
-    public void processHighScore() {
-            int score = game.getScore();
-//        int score = Shooter.powerUpsCollected + FlyingSaucer.saucersDead * 5;
+    public ArrayList<String> get() {
+        ArrayList<String> res = new ArrayList<>(MAXELEMENT);
+        for (int i = 0; i < MAXELEMENT; i++) {
+            res.add(i, highScore.get(i));
+        }
+
+        return res;
+    }
+
+    public void save(int score) {
         for (int i = 0; i < MAXELEMENT; i++) {
             if (score > (highScore.get(i).equalsIgnoreCase("null") ? 0 : Integer.parseInt(highScore.get(i)))) {
                 highScore.add(i, score + "");
-                System.out.println("qwer" + String.valueOf(score));
                 break;
             }
         }

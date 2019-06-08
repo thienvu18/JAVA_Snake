@@ -25,4 +25,6 @@ public class Constrains {
     public static final int ANIMATION_APPLE_FPS = 6;
     public static final int SNAKE_SPEED = 3;
     public static final int DELAY = 1000 / FPS;
+
+    public static final String HIGH_SCORE_PATH = "data/high_score.dat";
 }
