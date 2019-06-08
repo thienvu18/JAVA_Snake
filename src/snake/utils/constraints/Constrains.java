@@ -12,8 +12,8 @@ public class Constrains {
     public static final String RES_APPLE = "resources/images/apple.png";
     public static final String BOOM = "resources/images/boom.png";
     public static final String VIEW_HELP = "resources/images/help.png";
-    public static final String PAUSE = "resources/images/resum.png";
-    public static final String RESUM = "resources/images/pause.png";
+    public static final String PAUSE = "resources/images/pause.png";
+    public static final String RESUM = "resources/images/resum.png";
 
     public static final String VIEW_GAME = "resources/images/viewgame.jpg";
     public static final String VIEW_LEVEL = "resources/images/level.jpg";
@@ -25,4 +25,6 @@ public class Constrains {
     public static final int ANIMATION_APPLE_FPS = 6;
     public static final int SNAKE_SPEED = 3;
     public static final int DELAY = 1000 / FPS;
+
+    public static final String HIGH_SCORE_PATH = "data/high_score.dat";
 }

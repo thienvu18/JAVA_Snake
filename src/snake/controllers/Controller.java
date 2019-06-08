@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 public interface Controller {
     void newGame();
 
+    void play();
+
     void pause();
 
     void resume();

@@ -4,6 +4,7 @@ import snake.models.Boom;
 import snake.models.Drawable;
 import snake.models.GameBoard;
 import snake.models.Snake;
+import snake.utils.enums.GameState;
 import snake.views.View;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public interface Model extends Drawable {
 
     void notifyModelChange();
 
+    void newGame();
+
     void start();
 
     void stop();
@@ -25,7 +28,11 @@ public interface Model extends Drawable {
 
     int getScore();
 
+    String getHighScore();
+
     int getLevel();
+
+    GameState getState();
 
     GameBoard getGameBoard();
 
