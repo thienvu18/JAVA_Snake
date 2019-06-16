@@ -1,30 +1,32 @@
 package snake.controllers;
 
 
-import javax.swing.JOptionPane;
-
-import snake.models.Game;
-import snake.models.HighScore;
-import snake.models.Level1DeadBehavior;
-import snake.models.Level2DeadBehavior;
-import snake.models.Level3DeadBehavior;
+import snake.models.*;
 import snake.utils.constraints.Constrains;
-import snake.views.GameView;
-import snake.views.HelpView;
-import snake.views.LevelView;
-import snake.views.MenuView;
-import snake.views.View;
-import snake.views.Window;
+import snake.views.*;
+
+import javax.swing.*;
 
 public class GameController implements Controller {
 
+    private static GameController instance;
+
     private Game game;
     private Window rootView;
-    public GameController(Game game) {
+
+    private GameController(Game game) {
         this.game = game;
         rootView = Window.getInstance("Snake Game", Constrains.WIDTH, Constrains.HEIGHT);
         View menuView = new MenuView(game, this);
         rootView.changeView(menuView);
+    }
+
+    public static GameController getInstance(Game game) {
+        if (instance == null) {
+            instance = new GameController(game);
+        }
+
+        return instance;
     }
 
     @Override
@@ -41,16 +43,20 @@ public class GameController implements Controller {
         switch (game.getLevel()) {
             case 1:
                 game.setDeadBehavior(new Level1DeadBehavior());
+                game.getSnake().setMoveBehavior(new Level1MoveBehavior());
                 break;
             case 2:
                 game.setDeadBehavior(new Level2DeadBehavior());
+                game.getSnake().setMoveBehavior(new Level23MoveBehavior());
                 break;
             case 3:
                 game.setDeadBehavior(new Level3DeadBehavior());
+                game.getSnake().setMoveBehavior(new Level23MoveBehavior());
 
                 break;
             default:
                 game.setDeadBehavior(new Level1DeadBehavior());
+                game.getSnake().setMoveBehavior(new Level1MoveBehavior());
                 break;
         }
         game.start();
@@ -59,21 +65,18 @@ public class GameController implements Controller {
     @Override
     public void pause() {
         game.pause();
-        System.out.println("Paused");
     }
 
     @Override
     public void resume() {
         game.resume();
-        System.out.println("Resumed");
     }
-
 
 
     @Override
     public void highScore() {
 
-		if (JOptionPane.showConfirmDialog(rootView, "High Score:\n" + game.getHighScore(), "High Score",
+        if (JOptionPane.showConfirmDialog(rootView, "High Score:\n" + game.getHighScore(), "High Score",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION) == JOptionPane.DEFAULT_OPTION) {
         }
     }

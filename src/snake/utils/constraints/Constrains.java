@@ -13,18 +13,18 @@ public class Constrains {
     public static final String BOOM = "resources/images/boom.png";
     public static final String VIEW_HELP = "resources/images/help.png";
     public static final String PAUSE = "resources/images/pause.png";
-    public static final String RESUM = "resources/images/resum.png";
+    public static final String RESUME = "resources/images/resume.png";
+    public static final String MENUGAME = "resources/images/MenuGame.png";
 
     public static final String VIEW_GAME = "resources/images/viewgame.jpg";
     public static final String VIEW_LEVEL = "resources/images/level.jpg";
-    public static Color BACKGROUND_NORTH = new Color(74, 117, 44);
-    public static Color BACKGROUND = new Color(87, 138, 52);
     public static final int WIDTH = 560;
     public static final int HEIGHT = 600;
     public static final int FPS = 30;
     public static final int ANIMATION_APPLE_FPS = 6;
     public static final int SNAKE_SPEED = 3;
     public static final int DELAY = 1000 / FPS;
-
     public static final String HIGH_SCORE_PATH = "data/high_score.dat";
+    public static Color BACKGROUND_NORTH = new Color(74, 117, 44);
+    public static Color BACKGROUND = new Color(87, 138, 52);
 }

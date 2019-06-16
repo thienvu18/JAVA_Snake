@@ -10,10 +10,6 @@ import snake.utils.constraints.Constrains;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -104,11 +100,6 @@ public class LevelView extends JPanel implements View {
         panel.add(easybt);
         panel.add(normalbt);
         panel.add(hardbt);
-//        panel.setLocation(20, 0);
-//        System.out.println(this.getAlignmentX() +  " bb "+ this.getAlignmentY());
-//        this.setAlignmentX(CENTER_ALIGNMENT);
-//        System.out.println(this.getAlignmentX() +  " bb "+ this.getAlignmentY());
-
         add(panel);
 
     }
@@ -137,7 +128,6 @@ public class LevelView extends JPanel implements View {
     public void render() {
 
     }
-
 
 
 }

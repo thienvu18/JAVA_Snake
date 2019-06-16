@@ -13,12 +13,10 @@ public class Level3DeadBehavior implements DeadBehavior {
     @Override
     public boolean isDead(Model model) {
         if (model.getSnake().isHitWall(model.getGameBoard().getWidth(), model.getGameBoard().getHeight())) {
-            System.out.println("Cắn tường");
             return true;
         }
 
-        if (model.getSnake().isHitSelf()) {
-            System.out.println("Cắn thân");
+        else if (model.getSnake().isHitSelf()) {
             return true;
         }
         ArrayList<Boom> booms = model.getBooms();

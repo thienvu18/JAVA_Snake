@@ -1,7 +1,5 @@
 package snake.models;
 
-import snake.models.Drawable;
-import snake.models.Point;
 import snake.utils.constraints.Constrains;
 
 import javax.imageio.ImageIO;
@@ -15,6 +13,7 @@ public class Boom implements Drawable, Runnable {
     private BufferedImage bufferedImage = null;
     private Point point;
     private double currentScale = 1.0;
+    private boolean exist;
 
     public Boom() {
         try {
@@ -23,6 +22,7 @@ public class Boom implements Drawable, Runnable {
             e.printStackTrace();
         }
         point = Point.getRandomPoint(20, 20);
+        exist = true;
         start();
     }
 
@@ -45,6 +45,10 @@ public class Boom implements Drawable, Runnable {
         thread.start();
     }
 
+    public void destroy() {
+        exist = false;
+    }
+
     @Override
     public void draw(Graphics2D g) {
         Image image = bufferedImage.getScaledInstance((int) (Constrains.POINT_SIZE * currentScale), (int) (Constrains.POINT_SIZE * currentScale), Image.SCALE_SMOOTH);
@@ -65,7 +69,7 @@ public class Boom implements Drawable, Runnable {
         long beforeTime, timeDiff, sleep;
         beforeTime = System.currentTimeMillis();
 
-        while (true) {
+        while (exist) {
 
             this.animation();
 

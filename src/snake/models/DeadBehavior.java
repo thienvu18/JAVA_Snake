@@ -1,5 +1,5 @@
 package snake.models;
 
 public interface DeadBehavior {
-    boolean isDead(Model nodel);
+    boolean isDead(Model model);
 }

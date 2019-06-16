@@ -22,17 +22,18 @@ public class GameAction extends MouseAdapter implements KeyListener {
         super.mouseClicked(e);
 
         JButton cmd = (JButton) e.getSource();
-        System.out.println(cmd.getText());
 
         if (cmd.equals(gameView.getBtnPause())) {
-            System.out.println("pause");
             gameView.getBtnPause().setVisible(false);
-            gameView.getBtnResum().setVisible(true);
+            gameView.getBtnResume().setVisible(true);
             controller.pause();
-        } else if (cmd.equals(gameView.getBtnResum())) {
+        } else if (cmd.equals(gameView.getBtnResume())) {
             gameView.getBtnPause().setVisible(true);
-            gameView.getBtnResum().setVisible(false);
+            gameView.getBtnResume().setVisible(false);
             controller.resume();
+        }
+         else if (cmd.equals(gameView.getBtnMenuGame())) {
+            controller.newGame();
         }
 
     }

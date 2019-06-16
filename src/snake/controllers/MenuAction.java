@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 public class MenuAction extends MouseAdapter {
     private Controller controller;
 
-    public MenuAction( Controller controller) {
+    public MenuAction(Controller controller) {
         this.controller = controller;
     }
 

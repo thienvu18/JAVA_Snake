@@ -31,6 +31,7 @@
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
+.idea/misc.xml
 
 # CMake
 cmake-build-*/
@@ -121,3 +122,6 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+
+#Game data
+data/

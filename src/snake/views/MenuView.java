@@ -1,52 +1,42 @@
 package snake.views;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
+import snake.controllers.Controller;
+import snake.controllers.MenuAction;
+import snake.models.Model;
+import snake.utils.CustomPanel;
+import snake.utils.constraints.Constrains;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
-import snake.controllers.Controller;
-import snake.controllers.MenuAction;
-import snake.models.Model;
-import snake.utils.constraints.Constrains;
-
 public class MenuView extends JPanel implements View {
-    private Model game;
     private Controller controller;
+    private CustomPanel panel;
     private JButton newgamebt, help, quitbt, levelbt, highscorebt;
 
     public MenuView(Model game, Controller controller) {
-        this.game = game;
         this.controller = controller;
-        this.setLayout(new BorderLayout());
-//        game.addView(this);
-
-        this.setFocusable(true);
         init();
     }
 
     private void init() {
-        addButton();
-        mouseEventButton();
-    }
-
-    @Override
-	public void paintComponent(Graphics g) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File(Constrains.VIEW_GAME));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        g.drawImage(image, 0, 0, null);
+
+        panel = new CustomPanel(image);
+        addButton();
+        mouseEventButton();
+        panel.setFocusable(true);
+        this.setLayout(new BorderLayout());
+        add(panel);
     }
 
     private void addButton() {
@@ -93,7 +83,7 @@ public class MenuView extends JPanel implements View {
         p.add(help);
         p.add(quitbt);
 //        p.setLocation(180, 200);
-        add(p, BorderLayout.NORTH);
+        panel.add(p, BorderLayout.NORTH);
     }
 
     public void mouseEventButton() {

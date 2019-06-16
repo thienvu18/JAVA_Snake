@@ -6,18 +6,16 @@ import snake.utils.CustomPanel;
 import snake.utils.Utils;
 import snake.utils.constraints.Constrains;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.Border;
 
 public class HelpView extends JPanel implements View {
 
